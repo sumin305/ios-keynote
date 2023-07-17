@@ -11,6 +11,10 @@ enum AlphaType: Int, CaseIterable {
     case eight
     case nine
     case ten
+    
+    static func randomAlphaType() -> AlphaType {
+        return AlphaType.allCases.randomElement()!
+    }
 }
 
 struct RGBColor {
@@ -22,6 +26,14 @@ struct RGBColor {
         self.red = red
         self.green = green
         self.blue = blue
+    }
+    
+    static func randomNumberInRange() -> Int {
+        return Int.random(in: 0...256)
+    }
+    
+    static func randomRGBColor() -> RGBColor {
+        return RGBColor(red: randomNumberInRange(), green: randomNumberInRange(), blue: randomNumberInRange())
     }
 }
 

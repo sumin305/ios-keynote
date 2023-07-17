@@ -12,23 +12,13 @@ final class SquareSlideFactory {
         }
     }
     func getSquareSlide() -> SquareSlide {
-        let randomRGB = getRandomRGB()
-        let randomAlpha = getRandomAlpha()
+        let randomRGB = RGBColor.randomRGBColor()
+        let randomAlpha = AlphaType.randomAlphaType()
         let randomId = getRandomDifferentId()
-        let randomSide = getRandomSide()
+        let randomSide = Int.random(in: 0...1000)
         return SquareSlide(id: randomId, rgb: randomRGB, alpha: randomAlpha, side: randomSide)
     }
-    
-    func getRandomRGB() -> RGBColor {
-        let red = Int.random(in: 0...256)
-        let green = Int.random(in: 0...256)
-        let blue = Int.random(in: 0...256)
-        return RGBColor(red: red, green: green, blue: blue)
-    }
-    
-    func getRandomAlpha() -> AlphaType {
-        return AlphaType.allCases.randomElement()!
-    }
+
     
     func getRandomDifferentId() -> String {
         let stringArray = "abcdefghijklmnopqrstuvwxyz0123456789"
@@ -47,9 +37,6 @@ final class SquareSlideFactory {
         differentIdArray.append(id)
         return id
     }
-    
-    func getRandomSide() -> Int {
-        return Int.random(in: 0...1000)
-    }
+
 
 }
