@@ -1,19 +1,20 @@
 import Foundation
 import OSLog
-final class SquareSlideFactory {
+
+final class SquareSlideFactory: SlideFactory {
     
     private var differentIdArray: [String] = []
     
     func getFourSquareSlide() {
         for i in 1...4 {
-            let randomSquareSlide = getSquareSlide()
+            let randomSquareSlide = getSlide()
             let string: StaticString = "Rect%d %s"
             
-            os_log(string, i, randomSquareSlide.description)
+            os_log(string, i, (randomSquareSlide as! SquareSlide).description)
         }
     }
     
-    func getSquareSlide() -> SquareSlide {
+    func getSlide() -> Slidable {
         let randomRGB = RGBColor.randomRGBColor()
         let randomAlpha = AlphaType.randomAlphaType()
         let randomId = getRandomDifferentId()
@@ -37,4 +38,9 @@ final class SquareSlideFactory {
         differentIdArray.append(id)
         return id
     }
+}
+
+protocol SlideFactory {
+    func getSlide() -> Slidable
+    func getRandomDifferentId() -> String
 }
