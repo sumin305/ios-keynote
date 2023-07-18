@@ -1,6 +1,5 @@
 import Foundation
 
-
 final class SquareSlide: SquareSlidable {
     var id: String
     var rgb: RGBColor

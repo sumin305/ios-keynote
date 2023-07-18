@@ -18,6 +18,8 @@
 		EDE53CD72A659D3C000D4895 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CD62A659D3C000D4895 /* Protocols.swift */; };
 		EDE53CD92A65A02C000D4895 /* SquareSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CD82A65A02C000D4895 /* SquareSlide.swift */; };
 		EDE53CDB2A65A38E000D4895 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CDA2A65A38E000D4895 /* Factory.swift */; };
+		EDE53CDD2A6683E0000D4895 /* AlphaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CDC2A6683E0000D4895 /* AlphaType.swift */; };
+		EDE53CDF2A66841B000D4895 /* RGBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CDE2A66841B000D4895 /* RGBColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		EDE53CD62A659D3C000D4895 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		EDE53CD82A65A02C000D4895 /* SquareSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareSlide.swift; sourceTree = "<group>"; };
 		EDE53CDA2A65A38E000D4895 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		EDE53CDC2A6683E0000D4895 /* AlphaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaType.swift; sourceTree = "<group>"; };
+		EDE53CDE2A66841B000D4895 /* RGBColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,8 @@
 		EDE53CD52A659D2D000D4895 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EDE53CDE2A66841B000D4895 /* RGBColor.swift */,
+				EDE53CDC2A6683E0000D4895 /* AlphaType.swift */,
 				EDE53CD62A659D3C000D4895 /* Protocols.swift */,
 				EDE53CD82A65A02C000D4895 /* SquareSlide.swift */,
 				EDE53CDA2A65A38E000D4895 /* Factory.swift */,
@@ -274,7 +280,9 @@
 				EDE53CAA2A657FCD000D4895 /* MainViewController.swift in Sources */,
 				EDE53CA62A657FCD000D4895 /* AppDelegate.swift in Sources */,
 				EDE53CDB2A65A38E000D4895 /* Factory.swift in Sources */,
+				EDE53CDF2A66841B000D4895 /* RGBColor.swift in Sources */,
 				EDE53CD92A65A02C000D4895 /* SquareSlide.swift in Sources */,
+				EDE53CDD2A6683E0000D4895 /* AlphaType.swift in Sources */,
 				EDE53CA82A657FCD000D4895 /* SceneDelegate.swift in Sources */,
 				EDE53CD72A659D3C000D4895 /* Protocols.swift in Sources */,
 			);

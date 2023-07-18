@@ -8,9 +8,11 @@ final class SquareSlideFactory {
         for i in 1...4 {
             let randomSquareSlide = getSquareSlide()
             let string: StaticString = "Rect%d %s"
+            
             os_log(string, i, randomSquareSlide.description)
         }
     }
+    
     func getSquareSlide() -> SquareSlide {
         let randomRGB = RGBColor.randomRGBColor()
         let randomAlpha = AlphaType.randomAlphaType()
@@ -18,13 +20,11 @@ final class SquareSlideFactory {
         let randomSide = Int.random(in: 0...1000)
         return SquareSlide(id: randomId, rgb: randomRGB, alpha: randomAlpha, side: randomSide)
     }
-
     
     func getRandomDifferentId() -> String {
         let stringArray = "abcdefghijklmnopqrstuvwxyz0123456789"
         
         var id: String = ""
-        
         
         for _ in 0..<9 {
             id += String(stringArray.randomElement()!)
@@ -37,6 +37,4 @@ final class SquareSlideFactory {
         differentIdArray.append(id)
         return id
     }
-
-
 }
