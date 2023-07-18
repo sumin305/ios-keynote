@@ -3,7 +3,7 @@ import OSLog
 
 final class SquareSlideFactory: SlideFactory {
     
-    private var differentIdArray: [String] = []
+    private var differentIdArray: Set<String> = []
     
     func getFourSquareSlide() {
         for i in 1...4 {
@@ -35,7 +35,7 @@ final class SquareSlideFactory: SlideFactory {
             id = getId()
         }
         
-        differentIdArray.append(id)
+        differentIdArray.insert(id)
         return id
     }
 }
