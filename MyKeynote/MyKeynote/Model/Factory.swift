@@ -17,12 +17,12 @@ final class SquareSlideFactory: SlideFactory {
     func getSlide() -> Slidable {
         let randomRGB = RGBColor.randomRGBColor()
         let randomAlpha = AlphaType.randomAlphaType()
-        let randomId = getRandomDifferentId()
+        let randomId = getId()
         let randomSide = Int.random(in: 0...1000)
         return SquareSlide(id: randomId, rgb: randomRGB, alpha: randomAlpha, side: randomSide)
     }
     
-    func getRandomDifferentId() -> String {
+    func getId() -> String {
         let stringArray = "abcdefghijklmnopqrstuvwxyz0123456789"
         
         var id: String = ""
@@ -32,7 +32,7 @@ final class SquareSlideFactory: SlideFactory {
         }
         
         while differentIdArray.contains(id) {
-            id = getRandomDifferentId()
+            id = getId()
         }
         
         differentIdArray.append(id)
@@ -42,5 +42,5 @@ final class SquareSlideFactory: SlideFactory {
 
 protocol SlideFactory {
     func getSlide() -> Slidable
-    func getRandomDifferentId() -> String
+    func getId() -> String
 }

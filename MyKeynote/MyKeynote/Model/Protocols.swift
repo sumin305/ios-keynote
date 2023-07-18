@@ -10,14 +10,10 @@ protocol Slidable {
     var id: String { get }
 }
 
-protocol SquareSlidable: Square, Slidable { }
+protocol SquareSlidable: Square, Slidable, CustomStringConvertible { }
 
-extension String {
-    func subString(from: Int, to: Int) -> String {
-        guard from < count, to >= 0, to - from >= 0 else { return "" }
-        let startIndex = self.index(self.startIndex, offsetBy: from)
-        let endIndex = self.index(self.startIndex, offsetBy: to + 1)
-        
-        return String(self[startIndex..<endIndex])
+extension SquareSlidable {
+    var description: String {
+        return "\(id.subString(from: 0, to: 2))-\(id.subString(from: 3, to: 5))-\(id.subString(from: 6, to: 8)), Side:\(side), R:\(rgb.red), G:\(rgb.green), B:\(rgb.blue), Alpha: \(String(alpha.rawValue))"
     }
 }

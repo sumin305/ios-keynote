@@ -20,6 +20,7 @@
 		EDE53CDB2A65A38E000D4895 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CDA2A65A38E000D4895 /* Factory.swift */; };
 		EDE53CDD2A6683E0000D4895 /* AlphaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CDC2A6683E0000D4895 /* AlphaType.swift */; };
 		EDE53CDF2A66841B000D4895 /* RGBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CDE2A66841B000D4895 /* RGBColor.swift */; };
+		EDE53CE12A668DE0000D4895 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CE02A668DE0000D4895 /* StringExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		EDE53CDA2A65A38E000D4895 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		EDE53CDC2A6683E0000D4895 /* AlphaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaType.swift; sourceTree = "<group>"; };
 		EDE53CDE2A66841B000D4895 /* RGBColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBColor.swift; sourceTree = "<group>"; };
+		EDE53CE02A668DE0000D4895 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		EDE53CA42A657FCD000D4895 /* MyKeynote */ = {
 			isa = PBXGroup;
 			children = (
+				EDE53CE02A668DE0000D4895 /* StringExtension.swift */,
 				EDE53CD52A659D2D000D4895 /* Model */,
 				EDE53CA52A657FCD000D4895 /* AppDelegate.swift */,
 				EDE53CA72A657FCD000D4895 /* SceneDelegate.swift */,
@@ -282,6 +285,7 @@
 				EDE53CDB2A65A38E000D4895 /* Factory.swift in Sources */,
 				EDE53CDF2A66841B000D4895 /* RGBColor.swift in Sources */,
 				EDE53CD92A65A02C000D4895 /* SquareSlide.swift in Sources */,
+				EDE53CE12A668DE0000D4895 /* StringExtension.swift in Sources */,
 				EDE53CDD2A6683E0000D4895 /* AlphaType.swift in Sources */,
 				EDE53CA82A657FCD000D4895 /* SceneDelegate.swift in Sources */,
 				EDE53CD72A659D3C000D4895 /* Protocols.swift in Sources */,
