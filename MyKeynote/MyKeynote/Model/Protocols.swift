@@ -1,16 +1,17 @@
 import Foundation
 
-protocol Square {
-    var rgb: RGBColor { get set}
-    var alpha: AlphaType { get set }
-    var side: Int { get set }
-}
-
 protocol Slidable {
     var id: String { get }
 }
 
-protocol SquareSlidable: Square, Slidable, CustomStringConvertible { }
+protocol SquareSlidable: Slidable, CustomStringConvertible {
+    var rgb: RGBColor { get }
+    var alpha: AlphaType { get }
+    var side: Int { get }
+    
+    func changeRGB(rgb: RGBColor)
+    func changeAlpha(alpha: AlphaType)
+}
 
 extension SquareSlidable {
     var description: String {
