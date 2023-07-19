@@ -1,6 +1,7 @@
 import Foundation
 
 struct RGBColor {
+    
     private(set) var red: UInt8
     private(set) var green: UInt8
     private(set) var blue: UInt8
@@ -11,12 +12,12 @@ struct RGBColor {
         self.blue = blue
     }
     
-    static func randomNumberInRange() -> UInt8 {
+    static func randomNumber() -> UInt8 {
         return UInt8.random(in: 0...255)
     }
     
-    static func randomRGBColor() -> RGBColor {
-        return RGBColor(red: randomNumberInRange(), green: randomNumberInRange(), blue: randomNumberInRange())
+    static func random() -> RGBColor {
+        return RGBColor(red: randomNumber(), green: randomNumber(), blue: randomNumber())
     }
 }
 

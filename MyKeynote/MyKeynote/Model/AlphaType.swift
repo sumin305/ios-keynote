@@ -12,8 +12,11 @@ enum AlphaType: Int, CaseIterable {
     case nine
     case ten
     
-    static func randomAlphaType() -> AlphaType {
-        return AlphaType.allCases.randomElement()!
+    static func random() -> AlphaType {
+        if let alpha = AlphaType.allCases.randomElement() {
+            return alpha
+        }
+        return .one
     }
 }
 

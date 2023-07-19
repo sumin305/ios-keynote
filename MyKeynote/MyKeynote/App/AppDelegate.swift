@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window = UIWindow()
             window?.rootViewController = MainViewController() // 초기 ViewController
             window?.makeKeyAndVisible()
+            window?.backgroundColor = .white
             return true
         }
 
