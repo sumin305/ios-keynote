@@ -89,48 +89,27 @@ extension MainViewController {
     // MARK: - 색상이 변경되었을때
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         
+        let color = viewController.selectedColor
         // Model
-        changeSquareModelColor(color: viewController.selectedColor)
-        
-        // view
-        updateSquareViewColor(color: viewController.selectedColor)
-        updateBackGroundLabel()
-    }
-    
-    func changeSquareModelColor(color: UIColor) {
         squareSlide.changeRGB(rgb: RGBColor(red: color.redToUInt8, green: color.greenToUInt8, blue: color.blueToUInt8))
-    }
-        
-    func updateSquareViewColor(color: UIColor) {
+
+        // view
         squareView?.changeBackgroundColor(color: color.withAlphaComponent(squareSlide.alpha.alphaValue))
-    }
-    
-    func updateBackGroundLabel() {
         rightSideView.changeContent(square: squareSlide)
     }
     
     // MARK: - UIStepper로 투명도가 변경되었을 때
     @objc func stepperPressed(_ sender: UIStepper) {
         
+        let value = Int(sender.value)
         // Model
-        changeSquareModelAlphaValue(value: Int(sender.value))
-        
-        // View
-        updateSquareViewAlpha(value: Int(sender.value))
-        updateAlphaLabel()
-    }
-    
-    func changeSquareModelAlphaValue(value: Int) {
         squareSlide.changeAlpha(alpha: AlphaType(rawValue: value) ?? .one)
-    }
-    
-    func updateSquareViewAlpha(value: Int) {
-        squareView?.changeAlphaValue(value: value)
-    }
 
-    func updateAlphaLabel() {
+        // View
+        squareView?.changeAlphaValue(value: value)
         rightSideView.alphaView.text = "\(squareSlide.alpha.rawValue)"
     }
+
     
     // MARK: - 정사각형내에 제스쳐가 감지되었을 때
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
