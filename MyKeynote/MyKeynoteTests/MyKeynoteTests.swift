@@ -42,7 +42,6 @@ final class MyKeynoteTests: XCTestCase {
                           sut.squareSlideFactory.getRandomSlide(),
                           sut.squareSlideFactory.getRandomSlide(),
                           sut.squareSlideFactory.getRandomSlide()]
-        
         let beforeCount = sut.getSlideCount()
         sut.addSlide()
         let afterCount = sut.getSlideCount()

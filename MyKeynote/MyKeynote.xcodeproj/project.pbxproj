@@ -152,6 +152,14 @@
 			path = ContentView;
 			sourceTree = "<group>";
 		};
+		EDCF156E2A69999C001F1227 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EDE53CA92A657FCD000D4895 /* MainViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		EDE53C992A657FCD000D4895 = {
 			isa = PBXGroup;
 			children = (
@@ -175,8 +183,8 @@
 		EDE53CA42A657FCD000D4895 /* MyKeynote */ = {
 			isa = PBXGroup;
 			children = (
-				ED6969112A69819800FF0DD1 /* Util */,
 				EDE53CEB2A66D1DF000D4895 /* App */,
+				EDCF156E2A69999C001F1227 /* ViewController */,
 				EDE53CE22A669DBC000D4895 /* View */,
 				EDE53CD52A659D2D000D4895 /* Model */,
 				EDE53CAE2A657FCF000D4895 /* Assets.xcassets */,
@@ -225,9 +233,9 @@
 		EDE53CEB2A66D1DF000D4895 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				ED6969112A69819800FF0DD1 /* Util */,
 				EDE53CA72A657FCD000D4895 /* SceneDelegate.swift */,
 				EDE53CA52A657FCD000D4895 /* AppDelegate.swift */,
-				EDE53CA92A657FCD000D4895 /* MainViewController.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
