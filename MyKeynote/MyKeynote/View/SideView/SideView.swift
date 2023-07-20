@@ -7,9 +7,11 @@ class SideView: UIView {
         backgroundColor = UIColor(named: "SideViewColor")
         setFrame()
     }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
     func setFrame() { }
 }
 
