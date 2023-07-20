@@ -8,49 +8,53 @@
 import UIKit
 
 class MainViewController: UIViewController, UIColorPickerViewControllerDelegate {
-    
+    // MARK: - 뷰 선언
     let squareSlideFactory = SquareSlideFactory()
-
     var grayBackGroundView: UIView!
     var slideView: UIView!
     var leftSideView: LeftSideView!
     var rightSideView: RightSideView!
     var squareView: SquareView?
     var squareSlide: SquareSlide!
-   
+
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         squareSlideFactory.getFourSquareSlide()
+       
+
     }
-    
+    // MARK: - viewSafeAreaInsetsDidChange
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
         ConstantSize.safeAreaHeight = view.safeAreaInsets.top
         ConstantSize.totalHeight -= ConstantSize.safeAreaHeight
         ConstantSize.paddingHeight = (ConstantSize.totalHeight - ConstantSize.middleViewHeight) / 2
     }
-  
+    // MARK: - viewDidLayoutSubviews
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         getRandomSquareSlideView()
         initUI()
         configurateUI()
-        addTargets()
         addSubViews()
-    }
+        addTargets()
 
+        
+    }
+    // MARK: - initUI
     func initUI() {
         grayBackGroundView = UIView()
         slideView = UIView()
         leftSideView = LeftSideView()
     }
-    
+    // MARK: - getRandomSquareSlideView
     func getRandomSquareSlideView() {
         squareSlide = squareSlideFactory.getRandomSlide() as? SquareSlide
         rightSideView = RightSideView(square: squareSlide)
         squareView = SquareView(square: squareSlide)
     }
-    
+    // MARK: - configurateUI
     func configurateUI() {
         view.backgroundColor = UIColor(named: "SuperViewColor")
         grayBackGroundView.backgroundColor = UIColor(named: "SubViewColor")
@@ -58,12 +62,15 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
         slideView.backgroundColor = .white
         slideView.frame = CGRect(x: ConstantSize.sideViewWidth, y: ConstantSize.paddingHeight, width: ConstantSize.middleViewWidth, height: ConstantSize.middleViewHeight)
     }
-    
+    // MARK: - addTargets
     func addTargets() {
         rightSideView.backGroundColorPickerButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         rightSideView.stepperView.addTarget(self, action: #selector(stepperPressed), for: .allTouchEvents)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        slideView?.addGestureRecognizer(tapGestureRecognizer)
     }
-
+    
+    // MARK: - addSubViews
     func addSubViews() {
         view.addSubview(grayBackGroundView)
         grayBackGroundView.addSubview(slideView)
@@ -93,18 +100,24 @@ extension MainViewController {
         // UIColorPicker에서 선택된 색상 처리 로직을 여기에 구현합니다.
         changeSquareModelColor(color: viewController.selectedColor)
         updateSquareViewColor(color: viewController.selectedColor)
+        updateBackGroundLabel()
+
     }
     
     func changeSquareModelColor(color: UIColor) {
-        squareSlide.changeRGB(rgb: RGBColor(red: UInt8(color.cgColor.components![0]*255),
-                                            green: UInt8(color.cgColor.components![1]*255),
-                                            blue: UInt8(color.cgColor.components![2]*255)))
+        squareSlide.changeRGB(rgb: RGBColor(red: UInt8(color.cgColor.components![0]*255), green: UInt8(color.cgColor.components![1]*255), blue: UInt8(color.cgColor.components![2]*255)))
     }
         
     func updateSquareViewColor(color: UIColor) {
         squareView?.changeBackgroundColor(color: color)
     }
     
+    
+    func updateBackGroundLabel() {
+        rightSideView.setTitle(square: squareSlide)
+    }
+    
+    // MARK: - UIStepper로 투명도가 변경되었을 때
     @objc func stepperPressed(_ sender: UIStepper) {
         changeSquareModelAlphaValue(value: Int(sender.value))
         updateSquareViewAlpha(value: Int(sender.value))
@@ -116,13 +129,25 @@ extension MainViewController {
     }
     
     func updateSquareViewAlpha(value: Int) {
-        squareView?.changeAlphaValue(alphaValue: CGFloat(1 - Double(value) * 0.1))
+        squareView?.changeAlphaValue(value: value)
     }
-    
+
     func updateAlphaLabel() {
         rightSideView.alphaView.text = "\(squareSlide.alpha.rawValue)"
     }
+    
+    // MARK: - 정사각형내에 제스쳐가 감지되었을 때
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        let tapLocation = sender.location(in: slideView)
+        let targetFrame = squareView?.frame
+        
+        if targetFrame!.contains(tapLocation) {
+            rightSideView.changeSideContent(square: squareSlide, isSquareClicked: true)
+            squareView?.changeBorder(isSquareClicked: true)
+        } else {
+            rightSideView.changeSideContent(square: squareSlide, isSquareClicked: false)
+            squareView?.changeBorder(isSquareClicked: false)
+
+        }
+    }
 }
-
-
-

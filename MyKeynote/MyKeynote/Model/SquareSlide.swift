@@ -15,7 +15,6 @@ final class SquareSlide: SquareSlidable {
         self.alpha = alpha
         self.side = side
     }
-    //고민
     func changeRGB(rgb: RGBColor) {
         self.rgb = rgb
     }
