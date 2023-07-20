@@ -3,6 +3,8 @@ import Foundation
 final class SlideManager: SlideManagable {
     
     typealias Slide = Slidable
+    
+    // 사진 Slide 생길 경우, Factory Producer 하나만 갖도록
     let squareSlideFactory = SquareSlideFactory.shared
     var slideArray: [Slide] = []
     

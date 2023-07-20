@@ -9,6 +9,7 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
     var rightSideView: RightSideView!
     var squareView: SquareView?
     var squareSlide: SquareSlide!
+    var isClicked: Bool = false
 
     // MARK: - 뷰 설정
     override func viewDidLoad() {
@@ -35,7 +36,7 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
     func getRandomSquareSlideView() {
         slideManager.addSlide()
         squareSlide = slideManager[0] as? SquareSlide
-        rightSideView = RightSideView(square: squareSlide)
+        rightSideView = RightSideView(slide: squareSlide)
         squareView = SquareView(square: squareSlide)
     }
     
@@ -83,19 +84,21 @@ extension MainViewController {
         
         // 에러 해결 -> 아래와 같이 PresentationController의 SourceView, SourceRect를 지정해줘야됨!
         backGroundColorPicker.popoverPresentationController?.sourceView = rightSideView.backGroundColorPickerButton
-        backGroundColorPicker.popoverPresentationController?.sourceRect = rightSideView.backGroundColorPickerButton.bounds
         present(backGroundColorPicker, animated: true, completion: nil)
     }
     // MARK: - 색상이 변경되었을때
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-        // UIColorPicker에서 선택된 색상 처리 로직을 여기에 구현합니다.
+        
+        // Model
         changeSquareModelColor(color: viewController.selectedColor)
+        
+        // view
         updateSquareViewColor(color: viewController.selectedColor)
         updateBackGroundLabel()
     }
     
     func changeSquareModelColor(color: UIColor) {
-        squareSlide.changeRGB(rgb: RGBColor(red: UInt8(color.cgColor.components![0]*255), green: UInt8(color.cgColor.components![1]*255), blue: UInt8(color.cgColor.components![2]*255)))
+        squareSlide.changeRGB(rgb: RGBColor(red: color.redToUInt8, green: color.greenToUInt8, blue: color.blueToUInt8))
     }
         
     func updateSquareViewColor(color: UIColor) {
@@ -103,12 +106,16 @@ extension MainViewController {
     }
     
     func updateBackGroundLabel() {
-        rightSideView.setTitle(square: squareSlide)
+        rightSideView.changeContent(square: squareSlide)
     }
     
     // MARK: - UIStepper로 투명도가 변경되었을 때
     @objc func stepperPressed(_ sender: UIStepper) {
+        
+        // Model
         changeSquareModelAlphaValue(value: Int(sender.value))
+        
+        // View
         updateSquareViewAlpha(value: Int(sender.value))
         updateAlphaLabel()
     }
@@ -131,11 +138,15 @@ extension MainViewController {
         let targetFrame = squareView?.frame
         
         if targetFrame!.contains(tapLocation) {
-            rightSideView.changeSideContent(square: squareSlide, isSquareClicked: true)
-            squareView?.changeBorder(isSquareClicked: true)
+            isClicked = true
         } else {
-            rightSideView.changeSideContent(square: squareSlide, isSquareClicked: false)
-            squareView?.changeBorder(isSquareClicked: false)
+            isClicked = false
         }
+        changeViewBySquareClicked(isSquareClicked: isClicked)
+    }
+    
+    func changeViewBySquareClicked(isSquareClicked: Bool) {
+        rightSideView.changeSideContent(square: squareSlide, isSquareClicked: isSquareClicked)
+        squareView?.changeBorder(isClicked: isSquareClicked)
     }
 }

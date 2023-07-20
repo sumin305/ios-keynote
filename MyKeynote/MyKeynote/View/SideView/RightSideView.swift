@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 final class RightSideView: SideView, UIColorPickerViewControllerDelegate {
-    var squareSlide: SquareSlidable
+    var slide: Slidable
     let backGroundColorLabel = UILabel()
     let backGroundColorPickerButton = UIButton(type: .system)
     let alphaLabel = UILabel()
@@ -11,8 +11,8 @@ final class RightSideView: SideView, UIColorPickerViewControllerDelegate {
     var backGroundColorPickerButtonTitle = ""
     var alphaViewText = ""
     
-    init(square: SquareSlidable) {
-        squareSlide = square
+    init(slide: Slidable) {
+        self.slide = slide
         super.init()
         setBackGroundColorLabel()
         setBackGroundColorPickerButton()
@@ -42,6 +42,7 @@ final class RightSideView: SideView, UIColorPickerViewControllerDelegate {
         backGroundColorPickerButton.tintColor = .black
         backGroundColorPickerButton.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding + ConstantSize.contentHeight, width: ConstantSize.sideViewWidth - 2*ConstantSize.padding, height: ConstantSize.contentHeight)
         backGroundColorPickerButton.layer.cornerRadius = ConstantSize.cornerRadius
+        backGroundColorPickerButton.isEnabled = false
     }
     
     func setAlphaLabel() {
@@ -66,10 +67,11 @@ final class RightSideView: SideView, UIColorPickerViewControllerDelegate {
     
     func setStepperView() {
         stepperView.frame = CGRect(x: ConstantSize.padding*2 + (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3, y: ConstantSize.padding + ConstantSize.contentHeight * 3, width: (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3 * 2, height: ConstantSize.contentHeight)
-        stepperView.value = Double(squareSlide.alpha.rawValue)
+        stepperView.value = Double(slide.alpha.rawValue)
         stepperView.maximumValue = 10
         stepperView.minimumValue = 1
         stepperView.stepValue = 1
+        stepperView.isEnabled = false
     }
     
     func addRightSideSubviews() {
@@ -82,23 +84,26 @@ final class RightSideView: SideView, UIColorPickerViewControllerDelegate {
     
     func changeSideContent(square: Slidable, isSquareClicked: Bool) {
         if isSquareClicked {
-            setTitle(square: square)
+            changeContent(square: square)
         } else {
-            resetTitle()
+            resetContent()
         }
+        stepperView.isEnabled = isSquareClicked
+        backGroundColorPickerButton.isEnabled = isSquareClicked
     }
     
-    func setTitle(square: Slidable) {
+    func changeContent(square: Slidable) {
         if let s = square as? SquareSlide {
             let color = s.rgb
             backGroundColorPickerButtonTitle = s.rgb.hexadecimal
             alphaView.text = "\(s.alpha.rawValue)"
             setBackGroundColorPickerButton()
-            backGroundColorPickerButton.backgroundColor = UIColor(red: CGFloat(color.red)/255, green: CGFloat(color.green)/255, blue: CGFloat(color.blue)/255, alpha: 1)
+            backGroundColorPickerButton.isEnabled = true
+            backGroundColorPickerButton.backgroundColor = color.toUIColor(alpha: .one)
         }
     }
     
-    func resetTitle() {
+    func resetContent() {
         alphaView.text = ""
         backGroundColorPickerButtonTitle = ""
         setBackGroundColorPickerButton()
