@@ -1,17 +1,15 @@
-//
-//  SlideManager.swift
-//  MyKeynote
-//
-//  Created by 이수민 on 2023/07/20.
-//
-
 import Foundation
 
 final class SlideManager: SlideManagable {
+    
+    
     typealias Slide = Slidable
-    let squareSlideFactory = SquareSlideFactory()
+    let squareSlideFactory = SquareSlideFactory.shared
     var slideArray: [Slide] = []
     
+    func getFourSquareSlide() {
+        squareSlideFactory.getFourSquareSlide()
+    }
     func addSlide() {
         slideArray.append(squareSlideFactory.getRandomSlide())
     }

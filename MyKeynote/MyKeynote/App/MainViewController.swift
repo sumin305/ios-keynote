@@ -9,7 +9,7 @@ import UIKit
 
 class MainViewController: UIViewController, UIColorPickerViewControllerDelegate {
     // MARK: - 뷰 선언
-    let squareSlideFactory = SquareSlideFactory()
+    let slideManager = SlideManager()
     var grayBackGroundView: UIView!
     var slideView: UIView!
     var leftSideView: LeftSideView!
@@ -20,7 +20,7 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        squareSlideFactory.getFourSquareSlide()
+        slideManager.getFourSquareSlide()
        
 
     }
@@ -50,7 +50,8 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
     }
     // MARK: - getRandomSquareSlideView
     func getRandomSquareSlideView() {
-        squareSlide = squareSlideFactory.getRandomSlide() as? SquareSlide
+        slideManager.addSlide()
+        squareSlide = slideManager[0] as! SquareSlide
         rightSideView = RightSideView(square: squareSlide)
         squareView = SquareView(square: squareSlide)
     }
