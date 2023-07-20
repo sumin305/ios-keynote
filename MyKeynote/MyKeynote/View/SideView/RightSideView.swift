@@ -1,12 +1,5 @@
-
 import Foundation
 import UIKit
-
-final class LeftSideView: SideView {
-    override func setFrame() {
-        frame = CGRect(x: 0, y: 0, width: ConstantSize.sideViewWidth, height: ConstantSize.totalHeight)
-    }
-}
 
 final class RightSideView: SideView, UIColorPickerViewControllerDelegate {
     var squareSlide: SquareSlidable
@@ -113,16 +106,3 @@ final class RightSideView: SideView, UIColorPickerViewControllerDelegate {
         backGroundColorPickerButton.backgroundColor = UIColor(named: "SideViewColor")
     }
 }
-
-class SideView: UIView {
-    init() {
-        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        backgroundColor = UIColor(named: "SideViewColor")
-        setFrame()
-    }
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    func setFrame() { }
-}
-

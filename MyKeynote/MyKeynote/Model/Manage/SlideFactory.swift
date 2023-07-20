@@ -3,8 +3,9 @@ import OSLog
 
 final class SquareSlideFactory: SlideFactory {
     
+    static let shared = SquareSlideFactory()
     private var uniqueIDSet: Set<String> = []
-    
+    private init() {}
     func getFourSquareSlide() {
         for i in 1...4 {
             let randomSquareSlide = getRandomSlide()

@@ -39,7 +39,6 @@ final class SquareView: UIView {
     func changeBorder(isSquareClicked: Bool) {
         if isSquareClicked {
             layer.borderWidth = 5
-            //layer.borderColor = UIColor.blue.withAlphaComponent(1).cgColor
             layer.borderColor = UIColor.black.cgColor
         } else {
             layer.borderWidth = 0

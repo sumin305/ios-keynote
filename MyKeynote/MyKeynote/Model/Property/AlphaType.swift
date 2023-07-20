@@ -13,10 +13,6 @@ enum AlphaType: Int, CaseIterable {
     case nine // 0.2
     case ten // 0.1
     
-    var alphaValue: CGFloat {
-        return CGFloat(Double(11 - (self.rawValue)) * 0.1)
-    }
-    
     static func random() -> AlphaType {
         if let alpha = AlphaType.allCases.randomElement() {
             return alpha
@@ -25,3 +21,8 @@ enum AlphaType: Int, CaseIterable {
     }
 }
 
+extension AlphaType {
+    var alphaValue: CGFloat {
+        return CGFloat(Double(11 - (self.rawValue)) * 0.1)
+    }
+}
