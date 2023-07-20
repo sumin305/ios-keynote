@@ -12,4 +12,5 @@ enum ConstantSize {
     static var paddingHeight = (totalHeight - middleViewHeight) / 2
     static let padding: CGFloat = 5
     static let contentHeight: CGFloat = 30
+    static let cornerRadius: CGFloat = 5
 }
