@@ -24,8 +24,14 @@ final class SquareView: UIView {
         frame = CGRect(x: Int(ConstantSize.middleViewWidth/2 - CGFloat(side/2)), y: Int(ConstantSize.middleViewHeight/2 - CGFloat(side/2)), width: side, height: side)
     }
     
-    // MARK: - 하윙
+    // MARK: - Color Pick 되었을 때
     func setBackgroundColor(rgb: RGBColor, alpha: AlphaType) {
         backgroundColor = UIColor(red: CGFloat(rgb.red)/255, green: CGFloat(rgb.green)/255, blue: CGFloat(rgb.blue)/255, alpha: CGFloat(Double(alpha.rawValue) * 0.1))
+    }
+    func changeBackgroundColor(color: UIColor) {
+        backgroundColor = color
+    }
+    func changeAlphaValue(alphaValue: CGFloat) {
+        alpha = alphaValue
     }
 }

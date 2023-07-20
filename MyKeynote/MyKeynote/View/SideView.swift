@@ -80,11 +80,9 @@ final class RightSideView: SideView, UIColorPickerViewControllerDelegate {
     func addRightSideSubviews() {
         self.addSubview(backGroundColorLabel)
         self.addSubview(backGroundColorPickerButton)
-        
         self.addSubview(alphaLabel)
         self.addSubview(alphaView)
         self.addSubview(stepperView)
-        
     }
 }
 
