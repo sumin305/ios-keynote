@@ -10,7 +10,6 @@ import UIKit
 
 final class SquareView: UIView {
     
-    //var square
     init(square: SquareSlide) {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         setFrame(side: square.side)
