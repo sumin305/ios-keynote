@@ -13,7 +13,7 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
     // MARK: - 뷰 설정
     override func viewDidLoad() {
         super.viewDidLoad()
-        slideManager.getFourSquareSlide()
+        slideManager.getFourSquareSlide() // 미션 3-1 수행
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -32,17 +32,17 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
         addTargets()
     }
     
+    func getRandomSquareSlideView() {
+        slideManager.addSlide()
+        squareSlide = slideManager[0] as? SquareSlide
+        rightSideView = RightSideView(square: squareSlide)
+        squareView = SquareView(square: squareSlide)
+    }
+    
     func initUI() {
         grayBackGroundView = UIView()
         slideView = UIView()
         leftSideView = LeftSideView()
-    }
-    
-    func getRandomSquareSlideView() {
-        slideManager.addSlide()
-        squareSlide = slideManager[0] as! SquareSlide
-        rightSideView = RightSideView(square: squareSlide)
-        squareView = SquareView(square: squareSlide)
     }
     
     func configurateUI() {
@@ -55,7 +55,7 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
     
     func addTargets() {
         rightSideView.backGroundColorPickerButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        rightSideView.stepperView.addTarget(self, action: #selector(stepperPressed), for: .allTouchEvents)
+        rightSideView.stepperView.addTarget(self, action: #selector(stepperPressed), for: .touchUpInside)
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         slideView?.addGestureRecognizer(tapGestureRecognizer)
     }
@@ -99,7 +99,7 @@ extension MainViewController {
     }
         
     func updateSquareViewColor(color: UIColor) {
-        squareView?.changeBackgroundColor(color: color)
+        squareView?.changeBackgroundColor(color: color.withAlphaComponent(squareSlide.alpha.alphaValue))
     }
     
     func updateBackGroundLabel() {
