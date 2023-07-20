@@ -2,7 +2,6 @@ import Foundation
 import UIKit
 
 enum ConstantSize {
-    
     static var safeAreaHeight: CGFloat = 0
     static let totalWidth = UIScreen.main.bounds.width
     static var totalHeight = UIScreen.main.bounds.height

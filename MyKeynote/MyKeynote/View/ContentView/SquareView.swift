@@ -18,19 +18,21 @@ final class SquareView: UIView {
     }
     
     // MARK: - Color Pick 되었을 때
+    
+    // MARK: - 이렇게 model값을 uikit에서 사용하는 라이브러리 형태로 자주 변환될 경우..?? model에서 uikit import 하지 말라했는데 어떻게 해결할까????
     func setBackgroundColor(rgb: RGBColor, alpha: AlphaType) {
-             backgroundColor = UIColor(red: CGFloat(rgb.red)/255, green: CGFloat(rgb.green)/255, blue: CGFloat(rgb.blue)/255, alpha: alpha.alphaValue)
+        backgroundColor = rgb.toUIColor(alpha: alpha)
     }
     func changeBackgroundColor(color: UIColor) {
         backgroundColor = color
     }
     func changeAlphaValue(value: Int) {
-        // alpha가 변할 때 border의 투명도도 변하지 않도록..
+        // alpha가 변할 때 border의 투명도도 변하지 않도록 alpha = 이렇게 안하고 backgroundColor 변경
         backgroundColor = self.backgroundColor?.withAlphaComponent(AlphaType(rawValue: value)!.alphaValue)
-
     }
-    func changeBorder(isSquareClicked: Bool) {
-        if isSquareClicked {
+    
+    func changeBorder(isClicked: Bool) {
+        if isClicked {
             layer.borderWidth = 5
             layer.borderColor = UIColor.black.cgColor
         } else {
