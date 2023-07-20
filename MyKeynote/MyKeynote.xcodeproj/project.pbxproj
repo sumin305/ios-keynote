@@ -24,6 +24,7 @@
 		EDE53CE42A669DCC000D4895 /* ConstantSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CE32A669DCC000D4895 /* ConstantSize.swift */; };
 		EDE53CE62A66A154000D4895 /* SideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CE52A66A154000D4895 /* SideView.swift */; };
 		EDE53CE82A66A5A5000D4895 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CE72A66A5A5000D4895 /* SquareView.swift */; };
+		EDE53CEF2A68EE58000D4895 /* SlideManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CEE2A68EE58000D4895 /* SlideManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		EDE53CE32A669DCC000D4895 /* ConstantSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantSize.swift; sourceTree = "<group>"; };
 		EDE53CE52A66A154000D4895 /* SideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideView.swift; sourceTree = "<group>"; };
 		EDE53CE72A66A5A5000D4895 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
+		EDE53CEE2A68EE58000D4895 /* SlideManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				EDE53CDA2A65A38E000D4895 /* Factory.swift */,
 				EDE53CD62A659D3C000D4895 /* Protocols.swift */,
 				EDE53CD82A65A02C000D4895 /* SquareSlide.swift */,
+				EDE53CEE2A68EE58000D4895 /* SlideManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				EDE53CAA2A657FCD000D4895 /* MainViewController.swift in Sources */,
 				EDE53CA62A657FCD000D4895 /* AppDelegate.swift in Sources */,
 				EDE53CDB2A65A38E000D4895 /* Factory.swift in Sources */,
+				EDE53CEF2A68EE58000D4895 /* SlideManager.swift in Sources */,
 				EDE53CE82A66A5A5000D4895 /* SquareView.swift in Sources */,
 				EDE53CDF2A66841B000D4895 /* RGBColor.swift in Sources */,
 				EDE53CE42A669DCC000D4895 /* ConstantSize.swift in Sources */,

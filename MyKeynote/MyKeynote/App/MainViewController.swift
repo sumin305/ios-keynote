@@ -28,19 +28,17 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
         ConstantSize.safeAreaHeight = view.safeAreaInsets.top
         ConstantSize.totalHeight -= ConstantSize.safeAreaHeight
         ConstantSize.paddingHeight = (ConstantSize.totalHeight - ConstantSize.middleViewHeight) / 2
-        initUI()
-        getRandomSquareSlideView()
-        configurateUI()
-        addTargets()
-        addSubViews()
     }
   
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-    
+        getRandomSquareSlideView()
+        initUI()
+        configurateUI()
+        addTargets()
+        addSubViews()
     }
 
-    
     func initUI() {
         grayBackGroundView = UIView()
         slideView = UIView()
@@ -48,8 +46,7 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
     }
     
     func getRandomSquareSlideView() {
-        squareSlide = squareSlideFactory.getRandomSlide() as! SquareSlide
-        print(squareSlide.description)
+        squareSlide = squareSlideFactory.getRandomSlide() as? SquareSlide
         rightSideView = RightSideView(square: squareSlide)
         squareView = SquareView(square: squareSlide)
     }
@@ -105,7 +102,7 @@ extension MainViewController {
     }
         
     func updateSquareViewColor(color: UIColor) {
-        squareView?.backgroundColor = color
+        squareView?.changeBackgroundColor(color: color)
     }
     
     @objc func stepperPressed(_ sender: UIStepper) {
@@ -116,11 +113,10 @@ extension MainViewController {
     
     func changeSquareModelAlphaValue(value: Int) {
         squareSlide.changeAlpha(alpha: AlphaType(rawValue: value) ?? .one)
-        print("\(squareSlide.alpha.rawValue)")
     }
     
     func updateSquareViewAlpha(value: Int) {
-        squareView?.alpha = CGFloat(1 - Double(value) * 0.1)
+        squareView?.changeAlphaValue(alphaValue: CGFloat(1 - Double(value) * 0.1))
     }
     
     func updateAlphaLabel() {
