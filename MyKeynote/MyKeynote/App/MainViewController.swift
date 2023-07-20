@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UIColorPickerViewControllerDelegate {
     
     let squareSlideFactory = SquareSlideFactory()
 
@@ -16,6 +16,7 @@ class MainViewController: UIViewController {
     var leftSideView: LeftSideView!
     var rightSideView: RightSideView!
     var squareView: SquareView?
+    var squareSlide: SquareSlide!
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,27 +28,30 @@ class MainViewController: UIViewController {
         ConstantSize.safeAreaHeight = view.safeAreaInsets.top
         ConstantSize.totalHeight -= ConstantSize.safeAreaHeight
         ConstantSize.paddingHeight = (ConstantSize.totalHeight - ConstantSize.middleViewHeight) / 2
-    }
-  
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
         initUI()
         getRandomSquareSlideView()
         configurateUI()
+        addTargets()
         addSubViews()
     }
+  
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    
+    }
+
     
     func initUI() {
         grayBackGroundView = UIView()
         slideView = UIView()
         leftSideView = LeftSideView()
-        rightSideView = RightSideView()
     }
     
     func getRandomSquareSlideView() {
-        if let squareSlide = squareSlideFactory.getRandomSlide() as? SquareSlide {
-            squareView = SquareView(square: squareSlide)
-        }
+        squareSlide = squareSlideFactory.getRandomSlide() as! SquareSlide
+        print(squareSlide.description)
+        rightSideView = RightSideView(square: squareSlide)
+        squareView = SquareView(square: squareSlide)
     }
     
     func configurateUI() {
@@ -56,6 +60,11 @@ class MainViewController: UIViewController {
         grayBackGroundView.frame = CGRect(x: 0, y: ConstantSize.safeAreaHeight, width: ConstantSize.totalWidth, height: ConstantSize.totalHeight )
         slideView.backgroundColor = .white
         slideView.frame = CGRect(x: ConstantSize.sideViewWidth, y: ConstantSize.paddingHeight, width: ConstantSize.middleViewWidth, height: ConstantSize.middleViewHeight)
+    }
+    
+    func addTargets() {
+        rightSideView.backGroundColorPickerButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        rightSideView.stepperView.addTarget(self, action: #selector(stepperPressed), for: .allTouchEvents)
     }
 
     func addSubViews() {
@@ -67,14 +76,57 @@ class MainViewController: UIViewController {
             slideView.addSubview(subView)
         }
     }
-    
-    func addGestureRecognizerToRightSideView() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-        rightSideView.addGestureRecognizer(tapGestureRecognizer)
+}
+extension MainViewController {
+    // MARK: - 버튼이 눌렸을 때
+    @objc func buttonTapped() {
+        let backGroundColorPicker = UIColorPickerViewController()
+        backGroundColorPicker.title = "배경색"
+        backGroundColorPicker.supportsAlpha = false
+        backGroundColorPicker.delegate = self
+        backGroundColorPicker.modalPresentationStyle = .popover
+        
+        // 에러 해결 -> 아래와 같이 PresentationController의 SourceView, SourceRect를 지정해줘야됨!
+        backGroundColorPicker.popoverPresentationController?.sourceView = rightSideView.backGroundColorPickerButton
+        backGroundColorPicker.popoverPresentationController?.sourceRect = rightSideView.backGroundColorPickerButton.bounds
+        present(backGroundColorPicker, animated: true, completion: nil)
+    }
+    // MARK: - 색상이 변경되었을때
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        // UIColorPicker에서 선택된 색상 처리 로직을 여기에 구현합니다.
+        changeSquareModelColor(color: viewController.selectedColor)
+        updateSquareViewColor(color: viewController.selectedColor)
     }
     
-    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+    func changeSquareModelColor(color: UIColor) {
+        squareSlide.changeRGB(rgb: RGBColor(red: UInt8(color.cgColor.components![0]*255),
+                                            green: UInt8(color.cgColor.components![1]*255),
+                                            blue: UInt8(color.cgColor.components![2]*255)))
+    }
         
+    func updateSquareViewColor(color: UIColor) {
+        squareView?.backgroundColor = color
+    }
+    
+    @objc func stepperPressed(_ sender: UIStepper) {
+        changeSquareModelAlphaValue(value: Int(sender.value))
+        updateSquareViewAlpha(value: Int(sender.value))
+        updateAlphaLabel()
+    }
+    
+    func changeSquareModelAlphaValue(value: Int) {
+        squareSlide.changeAlpha(alpha: AlphaType(rawValue: value) ?? .one)
+        print("\(squareSlide.alpha.rawValue)")
+    }
+    
+    func updateSquareViewAlpha(value: Int) {
+        squareView?.alpha = CGFloat(1 - Double(value) * 0.1)
+    }
+    
+    func updateAlphaLabel() {
+        rightSideView.alphaView.text = "\(squareSlide.alpha.rawValue)"
     }
 }
+
+
 

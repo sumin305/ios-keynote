@@ -145,6 +145,7 @@
 		EDE53CD52A659D2D000D4895 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EDE53CE32A669DCC000D4895 /* ConstantSize.swift */,
 				EDE53CE02A668DE0000D4895 /* StringExtension.swift */,
 				EDE53CDE2A66841B000D4895 /* RGBColor.swift */,
 				EDE53CDC2A6683E0000D4895 /* AlphaType.swift */,
@@ -158,7 +159,6 @@
 		EDE53CE22A669DBC000D4895 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EDE53CE32A669DCC000D4895 /* ConstantSize.swift */,
 				EDE53CE52A66A154000D4895 /* SideView.swift */,
 				EDE53CE72A66A5A5000D4895 /* SquareView.swift */,
 			);
