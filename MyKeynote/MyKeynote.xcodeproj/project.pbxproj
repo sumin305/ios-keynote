@@ -147,12 +147,12 @@
 			path = SideView;
 			sourceTree = "<group>";
 		};
-		ED69691D2A69840E00FF0DD1 /* SlideView */ = {
+		ED69691D2A69840E00FF0DD1 /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
 				EDE53CE72A66A5A5000D4895 /* SquareView.swift */,
 			);
-			path = SlideView;
+			path = ContentView;
 			sourceTree = "<group>";
 		};
 		EDE53C992A657FCD000D4895 = {
@@ -219,7 +219,7 @@
 		EDE53CE22A669DBC000D4895 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				ED69691D2A69840E00FF0DD1 /* SlideView */,
+				ED69691D2A69840E00FF0DD1 /* ContentView */,
 				ED69691A2A69829400FF0DD1 /* SideView */,
 			);
 			path = View;

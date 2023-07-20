@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  MyKeynote
-//
-//  Created by 이수민 on 2023/07/17.
-//
-
 import UIKit
 
 class MainViewController: UIViewController, UIColorPickerViewControllerDelegate {
@@ -17,21 +10,19 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
     var squareView: SquareView?
     var squareSlide: SquareSlide!
 
-    // MARK: - viewDidLoad
+    // MARK: - 뷰 설정
     override func viewDidLoad() {
         super.viewDidLoad()
         slideManager.getFourSquareSlide()
-       
-
     }
-    // MARK: - viewSafeAreaInsetsDidChange
+    
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
         ConstantSize.safeAreaHeight = view.safeAreaInsets.top
         ConstantSize.totalHeight -= ConstantSize.safeAreaHeight
         ConstantSize.paddingHeight = (ConstantSize.totalHeight - ConstantSize.middleViewHeight) / 2
     }
-    // MARK: - viewDidLayoutSubviews
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         getRandomSquareSlideView()
@@ -39,23 +30,21 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
         configurateUI()
         addSubViews()
         addTargets()
-
-        
     }
-    // MARK: - initUI
+    
     func initUI() {
         grayBackGroundView = UIView()
         slideView = UIView()
         leftSideView = LeftSideView()
     }
-    // MARK: - getRandomSquareSlideView
+    
     func getRandomSquareSlideView() {
         slideManager.addSlide()
         squareSlide = slideManager[0] as! SquareSlide
         rightSideView = RightSideView(square: squareSlide)
         squareView = SquareView(square: squareSlide)
     }
-    // MARK: - configurateUI
+    
     func configurateUI() {
         view.backgroundColor = UIColor(named: "SuperViewColor")
         grayBackGroundView.backgroundColor = UIColor(named: "SubViewColor")
@@ -63,7 +52,7 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
         slideView.backgroundColor = .white
         slideView.frame = CGRect(x: ConstantSize.sideViewWidth, y: ConstantSize.paddingHeight, width: ConstantSize.middleViewWidth, height: ConstantSize.middleViewHeight)
     }
-    // MARK: - addTargets
+    
     func addTargets() {
         rightSideView.backGroundColorPickerButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         rightSideView.stepperView.addTarget(self, action: #selector(stepperPressed), for: .allTouchEvents)
@@ -71,7 +60,6 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
         slideView?.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    // MARK: - addSubViews
     func addSubViews() {
         view.addSubview(grayBackGroundView)
         grayBackGroundView.addSubview(slideView)
@@ -82,6 +70,8 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
         }
     }
 }
+
+// MARK: - 이벤트 설정
 extension MainViewController {
     // MARK: - 버튼이 눌렸을 때
     @objc func buttonTapped() {
@@ -102,7 +92,6 @@ extension MainViewController {
         changeSquareModelColor(color: viewController.selectedColor)
         updateSquareViewColor(color: viewController.selectedColor)
         updateBackGroundLabel()
-
     }
     
     func changeSquareModelColor(color: UIColor) {
@@ -112,7 +101,6 @@ extension MainViewController {
     func updateSquareViewColor(color: UIColor) {
         squareView?.changeBackgroundColor(color: color)
     }
-    
     
     func updateBackGroundLabel() {
         rightSideView.setTitle(square: squareSlide)
@@ -148,7 +136,6 @@ extension MainViewController {
         } else {
             rightSideView.changeSideContent(square: squareSlide, isSquareClicked: false)
             squareView?.changeBorder(isSquareClicked: false)
-
         }
     }
 }
