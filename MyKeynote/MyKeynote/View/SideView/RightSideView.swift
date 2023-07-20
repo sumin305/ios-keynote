@@ -41,8 +41,7 @@ final class RightSideView: SideView, UIColorPickerViewControllerDelegate {
         backGroundColorPickerButton.setTitle(backGroundColorPickerButtonTitle, for: .normal)
         backGroundColorPickerButton.tintColor = .black
         backGroundColorPickerButton.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding + ConstantSize.contentHeight, width: ConstantSize.sideViewWidth - 2*ConstantSize.padding, height: ConstantSize.contentHeight)
-        backGroundColorPickerButton.layer.cornerRadius = 5
-
+        backGroundColorPickerButton.layer.cornerRadius = ConstantSize.cornerRadius
     }
     
     func setAlphaLabel() {
@@ -58,7 +57,7 @@ final class RightSideView: SideView, UIColorPickerViewControllerDelegate {
         //alphaView.text = "\(squareSlide.alpha.rawValue)"
         alphaView.textColor = .black
         alphaView.clipsToBounds = true
-        alphaView.layer.cornerRadius = 5
+        alphaView.layer.cornerRadius = ConstantSize.cornerRadius
 
         alphaView.font = UIFont(name: "", size: ConstantSize.contentHeight)
         alphaView.backgroundColor = .white

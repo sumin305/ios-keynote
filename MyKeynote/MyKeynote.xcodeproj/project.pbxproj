@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ED6969132A69821D00FF0DD1 /* ImageSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6969122A69821D00FF0DD1 /* ImageSlide.swift */; };
 		ED6969192A69827700FF0DD1 /* RightSideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6969182A69827700FF0DD1 /* RightSideView.swift */; };
 		ED69691C2A6982A200FF0DD1 /* LeftSideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED69691B2A6982A200FF0DD1 /* LeftSideView.swift */; };
 		EDE53CA62A657FCD000D4895 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CA52A657FCD000D4895 /* AppDelegate.swift */; };
@@ -48,7 +47,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		ED6969122A69821D00FF0DD1 /* ImageSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSlide.swift; sourceTree = "<group>"; };
 		ED6969182A69827700FF0DD1 /* RightSideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightSideView.swift; sourceTree = "<group>"; };
 		ED69691B2A6982A200FF0DD1 /* LeftSideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftSideView.swift; sourceTree = "<group>"; };
 		EDE53CA22A657FCD000D4895 /* MyKeynote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyKeynote.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,7 +121,6 @@
 			children = (
 				EDE53CD62A659D3C000D4895 /* Protocols.swift */,
 				EDE53CD82A65A02C000D4895 /* SquareSlide.swift */,
-				ED6969122A69821D00FF0DD1 /* ImageSlide.swift */,
 			);
 			path = Slide;
 			sourceTree = "<group>";
@@ -378,7 +375,6 @@
 				EDE53CE12A668DE0000D4895 /* StringExtension.swift in Sources */,
 				EDE53CE62A66A154000D4895 /* SideView.swift in Sources */,
 				EDE53CDD2A6683E0000D4895 /* AlphaType.swift in Sources */,
-				ED6969132A69821D00FF0DD1 /* ImageSlide.swift in Sources */,
 				EDE53CA82A657FCD000D4895 /* SceneDelegate.swift in Sources */,
 				EDE53CD72A659D3C000D4895 /* Protocols.swift in Sources */,
 			);

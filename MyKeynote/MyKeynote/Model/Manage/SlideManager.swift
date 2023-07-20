@@ -2,7 +2,6 @@ import Foundation
 
 final class SlideManager: SlideManagable {
     
-    
     typealias Slide = Slidable
     let squareSlideFactory = SquareSlideFactory.shared
     var slideArray: [Slide] = []
@@ -25,11 +24,9 @@ final class SlideManager: SlideManagable {
 }
     
 protocol SlideManagable {
-    
     associatedtype Slide
     var slideArray: [Slide] { get set }
     func addSlide()
     func getSlideCount() -> Int
     subscript(index: Int) -> Slide? { get }
-    
 }
