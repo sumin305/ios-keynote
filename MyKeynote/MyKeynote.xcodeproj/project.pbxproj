@@ -214,6 +214,7 @@
 		EDE53CD52A659D2D000D4895 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ED6969112A69819800FF0DD1 /* Util */,
 				ED6969172A69824B00FF0DD1 /* Manage */,
 				ED6969162A69823A00FF0DD1 /* Slide */,
 				ED6969152A69822E00FF0DD1 /* Property */,
@@ -233,7 +234,6 @@
 		EDE53CEB2A66D1DF000D4895 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				ED6969112A69819800FF0DD1 /* Util */,
 				EDE53CA72A657FCD000D4895 /* SceneDelegate.swift */,
 				EDE53CA52A657FCD000D4895 /* AppDelegate.swift */,
 			);

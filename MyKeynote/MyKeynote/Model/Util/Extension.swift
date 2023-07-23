@@ -21,8 +21,8 @@ extension UIColor {
     }
 }
 
-extension RGBColor {
-    func toUIColor(alpha: AlphaType) -> UIColor {
-        return UIColor(red: CGFloat(self.red)/255, green: CGFloat(self.green)/255, blue: CGFloat(self.blue)/255, alpha: alpha.alphaValue)
+extension UIColor {
+    convenience init(color: RGBColor, alpha: AlphaType) {
+        self.init(red: CGFloat(color.red)/255, green: CGFloat(color.green)/255, blue: CGFloat(color.blue)/255, alpha: alpha.alphaValue)
     }
 }

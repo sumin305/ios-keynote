@@ -99,7 +99,9 @@ final class RightSideView: SideView, UIColorPickerViewControllerDelegate {
             alphaView.text = "\(s.alpha.rawValue)"
             setBackGroundColorPickerButton()
             backGroundColorPickerButton.isEnabled = true
-            backGroundColorPickerButton.backgroundColor = color.toUIColor(alpha: .one)
+            backGroundColorPickerButton.backgroundColor = UIColor(color: color, alpha: .one)
+
+//            backGroundColorPickerButton.backgroundColor = color.toUIColor(alpha: .one)
         }
     }
     

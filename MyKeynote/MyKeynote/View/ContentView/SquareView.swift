@@ -21,7 +21,7 @@ final class SquareView: UIView {
     
     // MARK: - 이렇게 model값을 uikit에서 사용하는 라이브러리 형태로 자주 변환될 경우..?? model에서 uikit import 하지 말라했는데 어떻게 해결할까????
     func setBackgroundColor(rgb: RGBColor, alpha: AlphaType) {
-        backgroundColor = rgb.toUIColor(alpha: alpha)
+        backgroundColor = UIColor(color: rgb, alpha: alpha)
     }
     func changeBackgroundColor(color: UIColor) {
         backgroundColor = color
