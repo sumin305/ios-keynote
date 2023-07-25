@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-protocol ContentPropertyViewDelegate {
+protocol ContentPropertyViewDelegate: AnyObject {
     func colorPickerButtonTapped()
     func stepperPressed(value: Int)
 }
@@ -9,7 +9,7 @@ protocol ContentPropertyViewDelegate {
 final class ContentPropertyView: SideView, UIColorPickerViewControllerDelegate {
     var content: any Contentable
     
-    var delegate: ContentPropertyViewDelegate?
+    weak var delegate: ContentPropertyViewDelegate?
     
     let backGroundColorLabel = UILabel()
     let backGroundColorPickerButton = UIButton(type: .system)
@@ -27,6 +27,7 @@ final class ContentPropertyView: SideView, UIColorPickerViewControllerDelegate {
         setAlphaView()
         setStepperView()
         addRightSideSubviews()
+        addTarget()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

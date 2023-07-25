@@ -2,11 +2,12 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    let slideManager = SlideManager()
+    var slideManager: SlideManager!
     var mainView: MainView!
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        slideManager = SlideManager()
         slideManager.getFourSquareSlide() // 미션 3-1 수행
         slideManager.addRandomSlide()
     }
@@ -20,10 +21,8 @@ class MainViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        view.backgroundColor = UIColor(named: "SuperViewColor")
         mainView = MainView(slideManager: slideManager)
-        mainView.backgroundColor = UIColor(named: "SubViewColor")
-        mainView.frame = CGRect(x: 0, y: ConstantSize.safeAreaHeight, width: ConstantSize.totalWidth, height: ConstantSize.totalHeight )
+        view.backgroundColor = UIColor(named: "SuperViewColor")
         view.addSubview(mainView)
         mainView.setDelegate(viewController: self)
     }
@@ -44,6 +43,7 @@ extension MainViewController: UIColorPickerViewControllerDelegate, ContentProper
         present(backGroundColorPicker, animated: true, completion: nil)
     }
     
+    // MARK: - 색상 변경
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         let squareSlideContent = (slideManager.slideArray[slideManager.currentSlideIndex].content as! SquareContent)
         let color = viewController.selectedColor
@@ -53,6 +53,8 @@ extension MainViewController: UIColorPickerViewControllerDelegate, ContentProper
         (mainView.slideView.contentView as? SquareContentView)?.changeBackgroundColor(color: color.withAlphaComponent((squareSlideContent.alpha.alphaValue)))
         mainView.contentPropertyView.changeContent(content: squareSlideContent)
     }
+    
+    // MARK: - Stepper 변경
     func stepperPressed(value: Int) {
         let content = slideManager.slideArray[slideManager.currentSlideIndex].content
         let value = Int(value)
@@ -63,20 +65,10 @@ extension MainViewController: UIColorPickerViewControllerDelegate, ContentProper
         (mainView.slideView.contentView).changeAlphaValue(value: value)
         mainView.contentPropertyView.alphaView.text = "\(content!.alpha.rawValue)"
     }
-    
-    func handleTap(_ sender: UITapGestureRecognizer) {
-        let tapLocation = sender.location(in: mainView)
-        let targetFrame = mainView.slideView.contentView?.frame
 
-        if targetFrame!.contains(tapLocation) {
-            changeViewBySquareClicked(isSquareClicked: true)
-        } else {
-            changeViewBySquareClicked(isSquareClicked: false)
-        }
-    }
-    
+    // MARK: - 정사각형 클릭
     func tapGestureRecognized(_ sender: UITapGestureRecognizer) {
-        let tapLocation = sender.location(in: mainView)
+        let tapLocation = sender.location(in: mainView.slideView)
         let targetFrame = mainView.slideView.contentView?.frame
         
         if targetFrame!.contains(tapLocation) {
