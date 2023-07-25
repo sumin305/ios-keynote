@@ -2,10 +2,8 @@ import Foundation
 import OSLog
 
 final class SquareSlideFactory: SlideFactory {
-    
-    static let shared = SquareSlideFactory()
-    private var uniqueIDSet: Set<String> = []
-    private init() {}
+    let idManager = IDManager.shared
+
     func getFourSquareSlide() {
         for i in 1...4 {
             let randomSquareSlide = getRandomSlide()
@@ -16,13 +14,33 @@ final class SquareSlideFactory: SlideFactory {
         }
     }
     
-    func getRandomSlide() -> Slidable {
+    func getRandomSlide() -> any Slidable {
         let randomRGB = RGBColor.random()
         let randomAlpha = AlphaType.random()
-        let randomID = makeRandomID()
+        let randomID = idManager.makeRandomID()
         let randomSide = Int.random(in: 0...Int(ConstantSize.middleViewHeight))
-        return SquareSlide(id: randomID, rgb: randomRGB, alpha: randomAlpha, side: randomSide)
+        return SquareSlide(id: randomID, content: SquareContent(alpha: randomAlpha, rgbColor: randomRGB, side: randomSide))
     }
+}
+
+final class ImageSlideFactory: SlideFactory {
+    let idManager = IDManager.shared
+
+    func getRandomSlide() -> any Slidable {
+        return ImageSlide(id: idManager.makeRandomID())
+    }
+}
+
+protocol SlideFactory {
+    func getRandomSlide() -> any Slidable
+}
+
+
+final class IDManager {
+    static let shared = IDManager()
+    
+    private init() { }
+    private var uniqueIDSet: Set<String> = []
     
     func makeRandomID() -> String {
         let stringArray = "abcdefghijklmnopqrstuvwxyz0123456789"
@@ -38,9 +56,4 @@ final class SquareSlideFactory: SlideFactory {
         uniqueIDSet.insert(id)
         return id
     }
-}
-
-protocol SlideFactory {
-    func getRandomSlide() -> Slidable
-    func makeRandomID() -> String
 }

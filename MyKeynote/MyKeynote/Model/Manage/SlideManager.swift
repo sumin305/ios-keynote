@@ -1,34 +1,33 @@
 import Foundation
 
-final class SlideManager: SlideManagable {
+final class SlideManager {
     
-    typealias Slide = Slidable
+    var slideArray: [any Slidable] = []
+    var currentSlideIndex: Int = 0
     
-    // 사진 Slide 생길 경우, Factory Producer 하나만 갖도록
-    let squareSlideFactory = SquareSlideFactory.shared
-    var slideArray: [Slide] = []
+    func produceRandomSlide(contentType: ContentType) -> any Slidable {
+        let slideFactory = SlideFactoryProducer.getFactory(contentType: contentType)
+        return slideFactory.getRandomSlide()
+    }
     
     func getFourSquareSlide() {
-        squareSlideFactory.getFourSquareSlide()
+        let squareSlideFactory = SlideFactoryProducer.getFactory(contentType: .square)
+        (squareSlideFactory as? SquareSlideFactory)?.getFourSquareSlide()
     }
-    func addSlide() {
-        slideArray.append(squareSlideFactory.getRandomSlide())
+    
+    func addRandomSlide() {
+        let slide = produceRandomSlide(contentType: .square) // 테스트를 위해 정사각 슬라이드 생성
+//        let slide = produceRandomSlide(contentType: ContentType.allCases.randomElement() ?? .square)
+        slideArray.append(slide)
     }
     
     func getSlideCount() -> Int {
         return slideArray.count
     }
     
-    subscript(index: Int) -> Slide? {
+    subscript(index: Int) -> (any Slidable)? {
         guard index < slideArray.count else { return nil }
         return slideArray[index]
     }
 }
-    
-protocol SlideManagable {
-    associatedtype Slide
-    var slideArray: [Slide] { get set }
-    func addSlide()
-    func getSlideCount() -> Int
-    subscript(index: Int) -> Slide? { get }
-}
+

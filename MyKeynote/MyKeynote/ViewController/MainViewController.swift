@@ -1,20 +1,14 @@
 import UIKit
 
-class MainViewController: UIViewController, UIColorPickerViewControllerDelegate {
-    // MARK: - 뷰 선언
+class MainViewController: UIViewController {
+    
     let slideManager = SlideManager()
-    var grayBackGroundView: UIView!
-    var slideView: UIView!
-    var leftSideView: LeftSideView!
-    var rightSideView: RightSideView!
-    var squareView: SquareView!
-    var squareSlide: SquareSlide!
-    var isClicked: Bool = false
-
-    // MARK: - 뷰 설정
+    var mainView: MainView!
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         slideManager.getFourSquareSlide() // 미션 3-1 수행
+        slideManager.addRandomSlide()
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -26,128 +20,77 @@ class MainViewController: UIViewController, UIColorPickerViewControllerDelegate 
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        getRandomSquareSlideView()
-        initUI()
-        configurateUI()
-        addSubViews()
-        addTargets()
-    }
-    
-    func getRandomSquareSlideView() {
-        slideManager.addSlide()
-        squareSlide = slideManager[0] as? SquareSlide
-        rightSideView = RightSideView(slide: squareSlide)
-        squareView = SquareView(square: squareSlide)
-    }
-    
-    func initUI() {
-        grayBackGroundView = UIView()
-        slideView = UIView()
-        leftSideView = LeftSideView()
-    }
-    
-    func configurateUI() {
         view.backgroundColor = UIColor(named: "SuperViewColor")
-        grayBackGroundView.backgroundColor = UIColor(named: "SubViewColor")
-        grayBackGroundView.frame = CGRect(x: 0, y: ConstantSize.safeAreaHeight, width: ConstantSize.totalWidth, height: ConstantSize.totalHeight )
-        slideView.backgroundColor = .white
-        slideView.frame = CGRect(x: ConstantSize.sideViewWidth, y: ConstantSize.paddingHeight, width: ConstantSize.middleViewWidth, height: ConstantSize.middleViewHeight)
+        mainView = MainView(slideManager: slideManager)
+        mainView.backgroundColor = UIColor(named: "SubViewColor")
+        mainView.frame = CGRect(x: 0, y: ConstantSize.safeAreaHeight, width: ConstantSize.totalWidth, height: ConstantSize.totalHeight )
+        view.addSubview(mainView)
+        mainView.setDelegate(viewController: self)
     }
     
-    func addTargets() {
-        rightSideView.backGroundColorPickerButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        rightSideView.stepperView.addTarget(self, action: #selector(stepperPressed), for: .touchUpInside)
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        slideView?.addGestureRecognizer(tapGestureRecognizer)
-    }
     
-    func addSubViews() {
-        view.addSubview(grayBackGroundView)
-        grayBackGroundView.addSubview(slideView)
-        grayBackGroundView.addSubview(leftSideView)
-        grayBackGroundView.addSubview(rightSideView)
-        if let subView = squareView {
-            slideView.addSubview(subView)
-        }
-    }
 }
-
 // MARK: - 이벤트 설정
-extension MainViewController {
-    // MARK: - 버튼이 눌렸을 때
-    @objc func buttonTapped() {
+extension MainViewController: UIColorPickerViewControllerDelegate, ContentPropertyViewDelegate, SlideViewDelegate {
+
+    func colorPickerButtonTapped() {
         let backGroundColorPicker = UIColorPickerViewController()
         backGroundColorPicker.title = "배경색"
         backGroundColorPicker.supportsAlpha = false
         backGroundColorPicker.delegate = self
         backGroundColorPicker.modalPresentationStyle = .popover
-        
-        // 에러 해결 -> 아래와 같이 PresentationController의 SourceView, SourceRect를 지정해줘야됨!
-        backGroundColorPicker.popoverPresentationController?.sourceView = rightSideView.backGroundColorPickerButton
+
+        backGroundColorPicker.popoverPresentationController?.sourceView = mainView.contentPropertyView.backGroundColorPickerButton
         present(backGroundColorPicker, animated: true, completion: nil)
     }
-    // MARK: - 색상이 변경되었을때
+    
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-        
-                let color = viewController.selectedColor
-                // Model
-                squareSlide.changeRGB(rgb: RGBColor(red: color.redToUInt8, green: color.greenToUInt8, blue: color.blueToUInt8))
-
-                // view
-                squareView?.changeBackgroundColor(color: color.withAlphaComponent(squareSlide.alpha.alphaValue))
-                rightSideView.changeContent(square: squareSlide)
-            }
-    func changeSquareModelColor(color: UIColor) {
-        squareSlide.changeRGB(rgb: RGBColor(red: color.redToUInt8, green: color.greenToUInt8, blue: color.blueToUInt8))
-    }
-        
-    func updateSquareViewColor(color: UIColor) {
-        squareView?.changeBackgroundColor(color: color.withAlphaComponent(squareSlide.alpha.alphaValue))
-    }
-    
-
-    
-    // MARK: - UIStepper로 투명도가 변경되었을 때
-    @objc func stepperPressed(_ sender: UIStepper) {
-        
-        let value = Int(sender.value)
+        let squareSlideContent = (slideManager.slideArray[slideManager.currentSlideIndex].content as! SquareContent)
+        let color = viewController.selectedColor
         // Model
-        squareSlide.changeAlpha(alpha: AlphaType(rawValue: value) ?? .one)
+        squareSlideContent.changeRGBColor(color: RGBColor(red: color.redToUInt8, green: color.greenToUInt8, blue: color.blueToUInt8))
+        // view
+        (mainView.slideView.contentView as? SquareContentView)?.changeBackgroundColor(color: color.withAlphaComponent((squareSlideContent.alpha.alphaValue)))
+        mainView.contentPropertyView.changeContent(content: squareSlideContent)
+    }
+    func stepperPressed(value: Int) {
+        let content = slideManager.slideArray[slideManager.currentSlideIndex].content
+        let value = Int(value)
+        // Model
+        content?.changeAlpha(alpha: AlphaType(rawValue: value) ?? .one)
 
         // View
-        squareView?.changeAlphaValue(value: value)
-        rightSideView.alphaView.text = "\(squareSlide.alpha.rawValue)"
+        (mainView.slideView.contentView).changeAlphaValue(value: value)
+        mainView.contentPropertyView.alphaView.text = "\(content!.alpha.rawValue)"
     }
     
-    func changeSquareModelAlphaValue(value: Int) {
-        squareSlide.changeAlpha(alpha: AlphaType(rawValue: value) ?? .one)
-    }
-    
-    func updateSquareViewAlpha(value: Int) {
-        squareView?.changeAlphaValue(value: value)
-    }
+    func handleTap(_ sender: UITapGestureRecognizer) {
+        let tapLocation = sender.location(in: mainView)
+        let targetFrame = mainView.slideView.contentView?.frame
 
-    func updateAlphaLabel() {
-        rightSideView.alphaView.text = "\(squareSlide.alpha.rawValue)"
+        if targetFrame!.contains(tapLocation) {
+            changeViewBySquareClicked(isSquareClicked: true)
+        } else {
+            changeViewBySquareClicked(isSquareClicked: false)
+        }
     }
-
     
-    // MARK: - 정사각형내에 제스쳐가 감지되었을 때
-    @objc func handleTap(_ sender: UITapGestureRecognizer) {
-        let tapLocation = sender.location(in: slideView)
-        let targetFrame = squareView?.frame
+    func tapGestureRecognized(_ sender: UITapGestureRecognizer) {
+        let tapLocation = sender.location(in: mainView)
+        let targetFrame = mainView.slideView.contentView?.frame
         
         if targetFrame!.contains(tapLocation) {
-            isClicked = true
+            changeViewBySquareClicked(isSquareClicked: true)
         } else {
-            isClicked = false
+            changeViewBySquareClicked(isSquareClicked: false)
         }
-        changeViewBySquareClicked(isSquareClicked: isClicked)
     }
-    
+
     func changeViewBySquareClicked(isSquareClicked: Bool) {
-        rightSideView.changeSideContent(square: squareSlide, isSquareClicked: isSquareClicked)
-        squareView?.changeBorder(isClicked: isSquareClicked)
+        let content = slideManager.slideArray[slideManager.currentSlideIndex].content
+
+        mainView.contentPropertyView.changeSideContent(content: content!, isSquareClicked: isSquareClicked)
+        (mainView.slideView.contentView)?.changeBorder(isClicked: isSquareClicked)
     }
 }
 

@@ -1,8 +1,8 @@
 import Foundation
 
-final class SquareSlide: Slidable, CustomStringConvertible {
+final class ImageSlide: Slidable {
     
-    typealias Content = SquareContent
+    typealias Content = ImageContent
     
     private(set) var id: String
     private(set) var content: Content?
