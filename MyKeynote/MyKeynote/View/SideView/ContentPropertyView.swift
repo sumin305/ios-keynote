@@ -61,8 +61,7 @@ final class ContentPropertyView: SideView, UIColorPickerViewControllerDelegate {
     
     func setAlphaView() {
         alphaView.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding + ConstantSize.contentHeight * 3, width: (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3, height: ConstantSize.contentHeight)
-        alphaView.text = "\(content.alpha.alphaValue)"
-        //alphaView.text = "\(squareSlide.alpha.rawValue)"
+        alphaView.text = ""
         alphaView.textColor = .black
         alphaView.clipsToBounds = true
         alphaView.layer.cornerRadius = ConstantSize.cornerRadius
@@ -129,5 +128,4 @@ final class ContentPropertyView: SideView, UIColorPickerViewControllerDelegate {
     @objc func stepperPressed(_ sender: UIStepper) {
         delegate?.stepperPressed(value: Int(sender.value))
     }
-   
 }

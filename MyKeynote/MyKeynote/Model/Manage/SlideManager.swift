@@ -25,6 +25,22 @@ final class SlideManager {
         return slideArray.count
     }
     
+    func changeRGBColor(color: RGBColor) {
+        (slideArray[currentSlideIndex].content as? SquareContent)?.changeRGBColor(color: color)
+    }
+    
+    func changeAlpha(alpha: AlphaType) {
+        slideArray[currentSlideIndex].content?.changeAlpha(alpha: alpha)
+    }
+    
+    func getContentAlpha() -> AlphaType {
+        return (slideArray[currentSlideIndex].content?.alpha) ?? .one
+    }
+    
+    func getContent() -> Contentable {
+        return (slideArray[currentSlideIndex].content)!
+    }
+    
     subscript(index: Int) -> (any Slidable)? {
         guard index < slideArray.count else { return nil }
         return slideArray[index]

@@ -27,7 +27,6 @@ class MainViewController: UIViewController {
         mainView.setDelegate(viewController: self)
     }
     
-    
 }
 // MARK: - 이벤트 설정
 extension MainViewController: UIColorPickerViewControllerDelegate, ContentPropertyViewDelegate, SlideViewDelegate {
@@ -48,22 +47,21 @@ extension MainViewController: UIColorPickerViewControllerDelegate, ContentProper
         let squareSlideContent = (slideManager.slideArray[slideManager.currentSlideIndex].content as! SquareContent)
         let color = viewController.selectedColor
         // Model
-        squareSlideContent.changeRGBColor(color: RGBColor(red: color.redToUInt8, green: color.greenToUInt8, blue: color.blueToUInt8))
+        slideManager.changeRGBColor(color: RGBColor(red: color.redToUInt8, green: color.greenToUInt8, blue: color.blueToUInt8))
         // view
         (mainView.slideView.contentView as? SquareContentView)?.changeBackgroundColor(color: color.withAlphaComponent((squareSlideContent.alpha.alphaValue)))
         mainView.contentPropertyView.changeContent(content: squareSlideContent)
+        print((slideManager.slideArray[slideManager.currentSlideIndex] as! SquareSlide).description)
+
     }
     
     // MARK: - Stepper 변경
     func stepperPressed(value: Int) {
-        let content = slideManager.slideArray[slideManager.currentSlideIndex].content
-        let value = Int(value)
         // Model
-        content?.changeAlpha(alpha: AlphaType(rawValue: value) ?? .one)
-
+        slideManager.changeAlpha(alpha: AlphaType(rawValue: value) ?? .one)
         // View
         (mainView.slideView.contentView).changeAlphaValue(value: value)
-        mainView.contentPropertyView.alphaView.text = "\(content!.alpha.rawValue)"
+        mainView.contentPropertyView.alphaView.text = "\(slideManager.getContentAlpha().rawValue)"
     }
 
     // MARK: - 정사각형 클릭
@@ -72,17 +70,17 @@ extension MainViewController: UIColorPickerViewControllerDelegate, ContentProper
         let targetFrame = mainView.slideView.contentView?.frame
         
         if targetFrame!.contains(tapLocation) {
-            changeViewBySquareClicked(isSquareClicked: true)
+            changeViewByContentClicked(isContentClicked: true)
         } else {
-            changeViewBySquareClicked(isSquareClicked: false)
+            changeViewByContentClicked(isContentClicked: false)
         }
     }
 
-    func changeViewBySquareClicked(isSquareClicked: Bool) {
-        let content = slideManager.slideArray[slideManager.currentSlideIndex].content
+    func changeViewByContentClicked(isContentClicked: Bool) {
+        let content = slideManager.getContent()
 
-        mainView.contentPropertyView.changeSideContent(content: content!, isSquareClicked: isSquareClicked)
-        (mainView.slideView.contentView)?.changeBorder(isClicked: isSquareClicked)
+        mainView.contentPropertyView.changeSideContent(content: content, isSquareClicked: isContentClicked)
+        (mainView.slideView.contentView)?.changeBorder(isClicked: isContentClicked)
     }
 }
 

@@ -121,6 +121,7 @@
 		ED482AAB2A6E17780009555E /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				ED0714502A6D50EF00DEDCCB /* ContentType.swift */,
 				ED482AAC2A6E17830009555E /* Contentable.swift */,
 				ED482AB02A6E70210009555E /* ImageContent.swift */,
 				ED482AAE2A6E700C0009555E /* SquareContent.swift */,
@@ -137,13 +138,13 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
-		ED6969152A69822E00FF0DD1 /* Property */ = {
+		ED6969152A69822E00FF0DD1 /* Type */ = {
 			isa = PBXGroup;
 			children = (
 				EDE53CDE2A66841B000D4895 /* RGBColor.swift */,
 				EDE53CDC2A6683E0000D4895 /* AlphaType.swift */,
 			);
-			path = Property;
+			path = Type;
 			sourceTree = "<group>";
 		};
 		ED6969162A69823A00FF0DD1 /* Slide */ = {
@@ -161,7 +162,6 @@
 			children = (
 				EDE53CEE2A68EE58000D4895 /* SlideManager.swift */,
 				EDE53CDA2A65A38E000D4895 /* SlideFactory.swift */,
-				ED0714502A6D50EF00DEDCCB /* ContentType.swift */,
 				ED482AB62A6EC5680009555E /* SlideFactoryProducer.swift */,
 			);
 			path = Manage;
@@ -185,6 +185,15 @@
 				ED0714522A6D51EC00DEDCCB /* ImageContentView.swift */,
 			);
 			path = ContentView;
+			sourceTree = "<group>";
+		};
+		ED8BBD9B2A6FC21A009F22A7 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				ED07144A2A6D46A300DEDCCB /* MainView.swift */,
+				ED07144C2A6D473600DEDCCB /* SlideView.swift */,
+			);
+			path = MainView;
 			sourceTree = "<group>";
 		};
 		EDCF156E2A69999C001F1227 /* ViewController */ = {
@@ -253,7 +262,7 @@
 				ED6969112A69819800FF0DD1 /* Util */,
 				ED6969172A69824B00FF0DD1 /* Manage */,
 				ED6969162A69823A00FF0DD1 /* Slide */,
-				ED6969152A69822E00FF0DD1 /* Property */,
+				ED6969152A69822E00FF0DD1 /* Type */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -261,8 +270,7 @@
 		EDE53CE22A669DBC000D4895 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				ED07144C2A6D473600DEDCCB /* SlideView.swift */,
-				ED07144A2A6D46A300DEDCCB /* MainView.swift */,
+				ED8BBD9B2A6FC21A009F22A7 /* MainView */,
 				ED69691D2A69840E00FF0DD1 /* ContentView */,
 				ED69691A2A69829400FF0DD1 /* SideView */,
 			);

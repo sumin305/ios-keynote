@@ -15,7 +15,6 @@ final class SlideView: UIView {
         backgroundColor = .white
         frame = CGRect(x: ConstantSize.sideViewWidth, y: ConstantSize.paddingHeight, width: ConstantSize.middleViewWidth, height: ConstantSize.middleViewHeight)
         
-        
         let contentViewFactory = ContentViewFactory()
         guard let content = slide.content else { return }
         contentView = contentViewFactory.createContentView(content: content)
