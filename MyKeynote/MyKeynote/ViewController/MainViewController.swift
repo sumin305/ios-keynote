@@ -10,6 +10,8 @@ class MainViewController: UIViewController {
         slideManager = SlideManager()
         slideManager.getFourSquareSlide() // 미션 3-1 수행
         slideManager.addRandomSlide() //메인뷰에 메서드 만들어라
+        NotificationCenter.default.addObserver(self, selector: #selector(didAlphaChanged), name: Notification.Name.alphaChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didColorChanged), name: Notification.Name.colorChanged, object: nil)
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -42,25 +44,15 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
     
     // MARK: - 색상 변경
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-        let squareSlideContent = (slideManager.getSlides()[slideManager.getSlideIndex()].content as! SquareContent)
         let color = viewController.selectedColor
         // Model
         slideManager.changeRGBColor(color: RGBColor(red: color.redToUInt8, green: color.greenToUInt8, blue: color.blueToUInt8))
-        
-        // view
-        mainView.changeContentViewBackgroundColor(color: color.withAlphaComponent(squareSlideContent.alpha.alphaValue))
-       
-        mainView.changeContentPropertyViewColor(color: color)
-        mainView.changeContentPropertyViewColorText(text: color.hexadecimal)
     }
     
     // MARK: - Stepper 변경
     func stepperPressed(value: Int) {
         // Model
         slideManager.changeAlpha(alpha: AlphaType(rawValue: value) ?? .one)
-        // View
-        mainView.changeContentViewAlpha(alpha: AlphaType(rawValue: value)!)
-        mainView.changeAlphaText(text: String(value))
     }
 
     // MARK: - 정사각형 클릭
@@ -88,5 +80,26 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
         mainView.disableContentPropertyView()
         mainView.disableContentViewBorder()
     }
+    
+    @objc func didAlphaChanged(_ sender: Notification) {
+        
+        guard let value = (sender.userInfo?["alpha"] as? AlphaType)?.rawValue else { return }
+        
+        mainView.changeContentViewAlpha(alpha: AlphaType(rawValue: value)!)
+        mainView.changeAlphaText(text: String(value))
+    }
+    
+    @objc func didColorChanged(_ sender: Notification) {
+        guard let rgbColor = sender.userInfo?["color"] as? RGBColor else { return }
+        let color = UIColor(color: rgbColor, alpha: .one)
+        let squareSlideContent = (slideManager.getSlides()[slideManager.getSlideIndex()].content as! SquareContent)
+        
+        mainView.changeContentViewBackgroundColor(color: color.withAlphaComponent(squareSlideContent.alpha.alphaValue))
+       
+        mainView.changeContentPropertyViewColor(color: color)
+        mainView.changeContentPropertyViewColorText(text: color.hexadecimal)
+    }
+    
+  
 }
 
