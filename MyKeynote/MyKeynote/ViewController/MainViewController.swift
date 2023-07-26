@@ -31,7 +31,7 @@ class MainViewController: UIViewController {
     }
 }
 // MARK: - 이벤트 설정
-extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDelegate, ContentPropertyViewDelegate, SlideListViewDelegate {
+extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDelegate, ContentPropertyViewDelegate, SlideListViewDelegate, UITableViewDataSource, UITableViewDelegate {
 
     func colorPickerButtonTapped(sourceButton: UIView) {
         let backGroundColorPicker = UIColorPickerViewController()
@@ -60,19 +60,14 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
     func tapGestureRecognized(_ sender: UITapGestureRecognizer, view: UIView, frame: CGRect) {
         let tapLocation = sender.location(in: view)
         let targetFrame = frame
-        
-        if targetFrame.contains(tapLocation) {
-            enableView()
-        } else {
-            disableView()
-        }
+        if targetFrame.contains(tapLocation) { enableView() }
+        else { disableView() }
     }
 
     func enableView() {
         let content = slideManager.getContent()
-        if let c = content as? SquareContent {
-            mainView.enableContentPropertyViewColor(color: UIColor(color: c.rgbColor, alpha: .one))
-        }
+        guard let c = content as? SquareContent else { return }
+        mainView.enableContentPropertyViewColor(color: UIColor(color: c.rgbColor, alpha: .one))
         mainView.enableContentPropertyViewAlpha(alpha: content.alpha)
         mainView.enableContentViewBorder()
     }
@@ -88,9 +83,7 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
     }
 
     @objc func didAlphaChanged(_ sender: Notification) {
-        
         guard let value = (sender.userInfo?["alpha"] as? AlphaType)?.rawValue else { return }
-        
         mainView.changeContentViewAlpha(alpha: AlphaType(rawValue: value)!)
         mainView.changeAlphaText(text: String(value))
     }
@@ -99,9 +92,7 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
         guard let rgbColor = sender.userInfo?["color"] as? RGBColor else { return }
         let color = UIColor(color: rgbColor, alpha: .one)
         let squareSlideContent = (slideManager.getSlides()[slideManager.getSlideIndex()].content as! SquareContent)
-        
         mainView.changeContentViewBackgroundColor(color: color.withAlphaComponent(squareSlideContent.alpha.alphaValue))
-       
         mainView.changeContentPropertyViewColor(color: color)
         mainView.changeContentPropertyViewColorText(text: color.hexadecimal)
     }
@@ -109,6 +100,22 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
     @objc func didSlideAdded(_ sender: Notification) {
         print("@@@@@@@@@@@")
         slideManager.getSlides().forEach{ print(($0 as! SquareSlide).description) }
+        guard let slide = sender.userInfo?["slide"] as? (any Slidable) else { return }
+        mainView.updateSlideList(slide: slide)
     }
+    
+    // MARK: - UITableView
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return slideManager.getSlideCount()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? CustomCell else { return CustomCell()}
+        cell.bind(index: indexPath.row, image: (slideManager[indexPath.row]?.content as? SquareContent) == nil ? "photo.fill" : "rectangle.inset.filled")
+        return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+           return 56
+       }
 }
 

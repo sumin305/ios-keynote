@@ -20,7 +20,7 @@ final class SlideManager {
         let slide = produceRandomSlide() // 테스트를 위해 정사각 슬라이드 생성
         slideArray.append(slide)
         NotificationCenter.default.post(name: Notification.Name.slideAdded, object: self,
-                                        userInfo: ["slide":slideArray.last!])
+                                        userInfo: ["slide":slide])
     }
     
     func getSlideCount() -> Int {

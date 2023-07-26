@@ -43,6 +43,7 @@ final class MainView: UIView {
         setContentPropertyViewDelegate(delegatable: delegatable)
         setTapGestureDelegate(delegatable: delegatable)
         setSlideAddButtonDelegate(delegatable: delegatable)
+        setSlideListTableViewDataSource(delegatable: delegatable)
     }
     func setContentPropertyViewDelegate(delegatable: AnyObject) {
         contentPropertyView.setContentPropertyViewDelegate(delegatable: delegatable as! ContentPropertyViewDelegate)
@@ -54,6 +55,12 @@ final class MainView: UIView {
     
     func setSlideAddButtonDelegate(delegatable: AnyObject) {
         slideListView.setSlideAddButtonDelegate(delegatable: delegatable as! SlideListViewDelegate)
+    }
+    
+    func setSlideListTableViewDataSource(delegatable: AnyObject) {
+        slideListView.setSlideListTableViewDataSource(delegatable: delegatable as! UITableViewDataSource)
+        
+        slideListView.setSlideListTableDelegate(delegatable: delegatable as! UITableViewDelegate)
     }
     // MARK: - Alpha 변경
     func changeContentViewAlpha(alpha: AlphaType) {
@@ -91,6 +98,10 @@ final class MainView: UIView {
     
     func disableContentViewBorder() {
         slideView.disableContentViewBorder()
+    }
+    
+    func updateSlideList(slide: any Slidable) {
+        slideListView.updateSlideList(slide: slide)
     }
         
 }
