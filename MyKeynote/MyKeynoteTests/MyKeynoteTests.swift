@@ -26,6 +26,29 @@ final class MyKeynoteTests: XCTestCase {
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
     }
 
+    // slideManager 구조체 테스트
+    func testSlideManagerGetSlideCountWell() throws {
+        let sut = SlideManager()
+        
+        let slideArray = sut.slideArray
+        let count = sut.getSlideCount()
+        
+        XCTAssertEqual(slideArray.count, count)
+    }
+    
+    func testSlideManagerCanAddSlide() throws {
+        let sut = SlideManager()
+        sut.slideArray = [sut.squareSlideFactory.getRandomSlide(),
+                          sut.squareSlideFactory.getRandomSlide(),
+                          sut.squareSlideFactory.getRandomSlide(),
+                          sut.squareSlideFactory.getRandomSlide()]
+        let beforeCount = sut.getSlideCount()
+        sut.addSlide()
+        let afterCount = sut.getSlideCount()
+        
+        XCTAssertEqual(beforeCount+1, afterCount)
+    }
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
