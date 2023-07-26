@@ -30,13 +30,13 @@ class MainViewController: UIViewController {
 // MARK: - 이벤트 설정
 extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDelegate, ContentPropertyViewDelegate {
 
-    func colorPickerButtonTapped() {
+    func colorPickerButtonTapped(sourceButton: UIView) {
         let backGroundColorPicker = UIColorPickerViewController()
         backGroundColorPicker.title = "배경색"
         backGroundColorPicker.supportsAlpha = false
         backGroundColorPicker.delegate = self
         backGroundColorPicker.modalPresentationStyle = .popover
-//        backGroundColorPicker.popoverPresentationController?.sourceView = mainView.contentPropertyView.backGroundColorPickerButton
+        backGroundColorPicker.popoverPresentationController?.sourceView = sourceButton
         present(backGroundColorPicker, animated: true, completion: nil)
     }
     
@@ -64,14 +64,16 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
     }
 
     // MARK: - 정사각형 클릭
-    func tapGestureRecognized(_ sender: UITapGestureRecognizer, frame: CGRect) {
-        let tapLocation = sender.location(in: mainView)
+    func tapGestureRecognized(_ sender: UITapGestureRecognizer, view: UIView, frame: CGRect) {
+        let tapLocation = sender.location(in: view)
         let targetFrame = frame
         
         if targetFrame.contains(tapLocation) {
             changeViewByContentClicked(isContentClicked: true)
+
         } else {
             changeViewByContentClicked(isContentClicked: false)
+
         }
     }
 
@@ -84,6 +86,7 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
             mainView.enableContentPropertyViewAlpha(alpha: content.alpha)
             mainView.enableContentViewBorder()
         } else {
+            mainView.disableContentPropertyView()
             mainView.disableContentViewBorder()
         }
     }

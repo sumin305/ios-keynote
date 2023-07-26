@@ -20,19 +20,13 @@ extension UIColor {
 
 extension UIColor {
     var hexadecimal: String {
-        var hexaString = "0x"
-        for rgb in [self.ciColor.red, self.ciColor.green, self.ciColor.blue] {
-            hexaString += String(Int(rgb * 10), radix: 16)
+        var hexaString = ""
+        for rgb in [self.redToUInt8, self.greenToUInt8, self.blueToUInt8] {
+            hexaString += String(Int(rgb) * 10, radix: 16)
         }
-        return hexaString
+        return "0x" + hexaString.uppercased()
     }
 }
-
-//extension UIColor {
-//    convenience init(color: UIColor, alpha: AlphaType) {
-//        self.init(color: RGBColor, alpha: <#T##AlphaType#>)
-//    }
-//}
 
 
 

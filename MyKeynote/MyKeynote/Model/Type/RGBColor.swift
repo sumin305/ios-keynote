@@ -20,15 +20,15 @@ struct RGBColor {
         return RGBColor(red: randomNumber(), green: randomNumber(), blue: randomNumber())
     }
 }
-
-extension RGBColor {
-    var hexadecimal: String {
-        var hexaString = "0x"
-        for rgb in [red, green, blue] {
-            hexaString += String(rgb, radix: 16)
-        }
-        return hexaString
-    }
-}
+//
+//extension RGBColor {
+//    var hexadecimal: String {
+//        var hexaString = "0x"
+//        for rgb in [red, green, blue] {
+//            hexaString += String(rgb, radix: 16)
+//        }
+//        return hexaString
+//    }
+//}
 
 

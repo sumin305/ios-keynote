@@ -17,7 +17,6 @@ final class SlideManager {
     
     func addRandomSlide() {
         let slide = produceRandomSlide(contentType: .square) // 테스트를 위해 정사각 슬라이드 생성
-//        let slide = produceRandomSlide(contentType: ContentType.allCases.randomElement() ?? .square)
         slideArray.append(slide)
     }
     

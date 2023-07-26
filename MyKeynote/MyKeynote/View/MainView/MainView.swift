@@ -6,7 +6,6 @@ final class MainView: UIView {
     private var slideView: SlideView!
     private var slideListView: SlideListView!
     private var contentPropertyView: ContentPropertyView!
-//    private var selectedIndex: Int
     
     // 뷰에 slideManager를 넘겨주지 않고, Notification Center, property 넘겨주기~
     init(slides: [any Slidable], selectedIndex: Int) {
