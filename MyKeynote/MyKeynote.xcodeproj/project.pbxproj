@@ -20,6 +20,7 @@
 		ED69691C2A6982A200FF0DD1 /* SlideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED69691B2A6982A200FF0DD1 /* SlideListView.swift */; };
 		ED6F32C62A713F9F0095BB6C /* IDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6F32C52A713F9F0095BB6C /* IDManager.swift */; };
 		ED6F32C82A71403D0095BB6C /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6F32C72A71403D0095BB6C /* ContentType.swift */; };
+		ED6F32CA2A71A3260095BB6C /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6F32C92A71A3260095BB6C /* CustomCell.swift */; };
 		ED8BBD9D2A70DC03009F22A7 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8BBD9C2A70DC03009F22A7 /* StringExtension.swift */; };
 		EDE53CA62A657FCD000D4895 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CA52A657FCD000D4895 /* AppDelegate.swift */; };
 		EDE53CA82A657FCD000D4895 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CA72A657FCD000D4895 /* SceneDelegate.swift */; };
@@ -72,6 +73,7 @@
 		ED69691B2A6982A200FF0DD1 /* SlideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideListView.swift; sourceTree = "<group>"; };
 		ED6F32C52A713F9F0095BB6C /* IDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDManager.swift; sourceTree = "<group>"; };
 		ED6F32C72A71403D0095BB6C /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
+		ED6F32C92A71A3260095BB6C /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		ED8BBD9C2A70DC03009F22A7 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		EDE53CA22A657FCD000D4895 /* MyKeynote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyKeynote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDE53CA52A657FCD000D4895 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				ED69691B2A6982A200FF0DD1 /* SlideListView.swift */,
 				ED6969182A69827700FF0DD1 /* ContentPropertyView.swift */,
 				EDE53CE52A66A154000D4895 /* SideView.swift */,
+				ED6F32C92A71A3260095BB6C /* CustomCell.swift */,
 			);
 			path = SideView;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				EDE53CA82A657FCD000D4895 /* SceneDelegate.swift in Sources */,
 				EDE53CD72A659D3C000D4895 /* Slidable.swift in Sources */,
 				ED8BBD9D2A70DC03009F22A7 /* StringExtension.swift in Sources */,
+				ED6F32CA2A71A3260095BB6C /* CustomCell.swift in Sources */,
 				ED482AB32A6E70980009555E /* ImageSlide.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

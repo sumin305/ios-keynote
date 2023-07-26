@@ -7,11 +7,14 @@ protocol SlideListViewDelegate: AnyObject {
 
 final class SlideListView: SideView {
     
+    var slideAddButton: UIButton!
+    var slideListTableView: UITableView!
+    
     weak var delegate: SlideListViewDelegate?
- 
     init(slideArray: [any Slidable]) {
         super.init()
         setSlideAddButton()
+        setSlideListTableView()
     }
     
     required init?(coder: NSCoder) {
@@ -23,7 +26,7 @@ final class SlideListView: SideView {
     }
     
     func setSlideAddButton() {
-        let slideAddButton = UIButton(type: .system)
+        slideAddButton = UIButton(type: .system)
         slideAddButton.setTitle( "(+)", for: .normal)
         slideAddButton.tintColor = UIColor(named: "SlideAddButtonTextColor")
         slideAddButton.backgroundColor = UIColor(named: "SlideAddButtonColor")
@@ -31,6 +34,25 @@ final class SlideListView: SideView {
         slideAddButton.frame = CGRect(x: 0, y: ConstantSize.totalHeight - Size.buttonHeight, width: ConstantSize.sideViewWidth, height: Size.buttonHeight)
         slideAddButton.addTarget(self, action: #selector(slideAddButtonTapped), for: .touchUpInside)
         addSubview(slideAddButton)
+    }
+    
+    func setSlideListTableView() {
+        slideListTableView = UITableView(frame: CGRect(x: 0, y: 0, width: ConstantSize.sideViewWidth, height: ConstantSize.totalHeight - slideAddButton.frame.height), style: .plain)
+        slideListTableView.register(CustomCell.self, forCellReuseIdentifier: "CustomCell")
+        addSubview(slideListTableView)
+    }
+    
+    func setSlideListTableViewDataSource(delegatable: UITableViewDataSource) {
+        slideListTableView.dataSource = delegatable
+    }
+    
+    func setSlideListTableDelegate(delegatable: UITableViewDelegate) {
+        slideListTableView.delegate = delegatable
+    }
+    
+    func updateSlideList(slide: any Slidable) {
+        slideListTableView.insertRows(at: IndexPath[], with: .automatic)
+        slideListTableView.reloadData()
     }
 }
 
