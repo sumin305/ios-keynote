@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 protocol ContentPropertyViewDelegate: AnyObject {
-    func colorPickerButtonTapped()
+    func colorPickerButtonTapped(sourceButton: UIView)
     func stepperPressed(value: Int)
 }
 
@@ -99,6 +99,7 @@ final class ContentPropertyView: SideView {
     // MARK: - 정사각 슬라이드 색 변경
     func changeContentPropertyViewColor(color: UIColor) {
         backGroundColorPickerButton.backgroundColor = color.withAlphaComponent(1)
+        backGroundColorPickerButton.setTitle(color.hexadecimal, for: .normal)
     }
     func changeContentPropertyViewColorText(text: String) {
         backGroundColorPickerButtonTitle = text
@@ -107,7 +108,7 @@ final class ContentPropertyView: SideView {
     func enableContentPropertyViewColor(color: UIColor) {
         backGroundColorPickerButton.isEnabled = true
         backGroundColorPickerButton.backgroundColor = color
-        backGroundColorPickerButtonTitle = color.hexadecimal
+        backGroundColorPickerButton.setTitle(color.hexadecimal, for: .normal)
     }
     
     func enableContentPropertyViewAlpha(alpha: AlphaType) {
@@ -118,7 +119,6 @@ final class ContentPropertyView: SideView {
     func disableContentPropertyView() {
         alphaView.text = ""
         backGroundColorPickerButtonTitle = ""
-        setBackGroundColorPickerButton()
         backGroundColorPickerButton.backgroundColor = UIColor(named: "SideViewColor")
         stepperView.isEnabled = false
         backGroundColorPickerButton.isEnabled = false
@@ -129,7 +129,7 @@ final class ContentPropertyView: SideView {
     }
     
     @objc func colorPickerButtonTapped() {
-        delegate?.colorPickerButtonTapped()
+        delegate?.colorPickerButtonTapped(sourceButton: backGroundColorPickerButton)
     }
     
     @objc func stepperPressed(_ sender: UIStepper) {

@@ -1,6 +1,6 @@
 import UIKit
 protocol TapGestureDelegate: AnyObject {
-    func tapGestureRecognized(_ sender: UITapGestureRecognizer, frame: CGRect)
+    func tapGestureRecognized(_ sender: UITapGestureRecognizer, view: UIView, frame: CGRect)
 }
 final class SlideView: UIView {
     
@@ -27,7 +27,7 @@ final class SlideView: UIView {
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
-        delegate?.tapGestureRecognized(sender, frame: contentView.frame)
+        delegate?.tapGestureRecognized(sender, view: self, frame: contentView.frame)
     }
     func changeContentViewAlpha(alpha: AlphaType) {
         contentView.changeContentViewAlpha(alpha: alpha)
