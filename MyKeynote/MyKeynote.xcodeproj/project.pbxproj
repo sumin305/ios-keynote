@@ -10,7 +10,6 @@
 		ED07144B2A6D46A300DEDCCB /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED07144A2A6D46A300DEDCCB /* MainView.swift */; };
 		ED07144D2A6D473600DEDCCB /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED07144C2A6D473600DEDCCB /* SlideView.swift */; };
 		ED07144F2A6D4E5A00DEDCCB /* ContentViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED07144E2A6D4E5A00DEDCCB /* ContentViewFactory.swift */; };
-		ED0714512A6D50EF00DEDCCB /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0714502A6D50EF00DEDCCB /* ContentType.swift */; };
 		ED0714532A6D51EC00DEDCCB /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0714522A6D51EC00DEDCCB /* ImageContentView.swift */; };
 		ED482AAD2A6E17830009555E /* Contentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED482AAC2A6E17830009555E /* Contentable.swift */; };
 		ED482AAF2A6E700C0009555E /* SquareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED482AAE2A6E700C0009555E /* SquareContent.swift */; };
@@ -19,6 +18,8 @@
 		ED482AB72A6EC5680009555E /* SlideFactoryProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED482AB62A6EC5680009555E /* SlideFactoryProducer.swift */; };
 		ED6969192A69827700FF0DD1 /* ContentPropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6969182A69827700FF0DD1 /* ContentPropertyView.swift */; };
 		ED69691C2A6982A200FF0DD1 /* SlideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED69691B2A6982A200FF0DD1 /* SlideListView.swift */; };
+		ED6F32C62A713F9F0095BB6C /* IDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6F32C52A713F9F0095BB6C /* IDManager.swift */; };
+		ED6F32C82A71403D0095BB6C /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6F32C72A71403D0095BB6C /* ContentType.swift */; };
 		ED8BBD9D2A70DC03009F22A7 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8BBD9C2A70DC03009F22A7 /* StringExtension.swift */; };
 		EDE53CA62A657FCD000D4895 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CA52A657FCD000D4895 /* AppDelegate.swift */; };
 		EDE53CA82A657FCD000D4895 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CA72A657FCD000D4895 /* SceneDelegate.swift */; };
@@ -61,7 +62,6 @@
 		ED07144A2A6D46A300DEDCCB /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		ED07144C2A6D473600DEDCCB /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
 		ED07144E2A6D4E5A00DEDCCB /* ContentViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewFactory.swift; sourceTree = "<group>"; };
-		ED0714502A6D50EF00DEDCCB /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		ED0714522A6D51EC00DEDCCB /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
 		ED482AAC2A6E17830009555E /* Contentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contentable.swift; sourceTree = "<group>"; };
 		ED482AAE2A6E700C0009555E /* SquareContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareContent.swift; sourceTree = "<group>"; };
@@ -70,6 +70,8 @@
 		ED482AB62A6EC5680009555E /* SlideFactoryProducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideFactoryProducer.swift; sourceTree = "<group>"; };
 		ED6969182A69827700FF0DD1 /* ContentPropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPropertyView.swift; sourceTree = "<group>"; };
 		ED69691B2A6982A200FF0DD1 /* SlideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideListView.swift; sourceTree = "<group>"; };
+		ED6F32C52A713F9F0095BB6C /* IDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDManager.swift; sourceTree = "<group>"; };
+		ED6F32C72A71403D0095BB6C /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		ED8BBD9C2A70DC03009F22A7 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		EDE53CA22A657FCD000D4895 /* MyKeynote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyKeynote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDE53CA52A657FCD000D4895 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -123,7 +125,6 @@
 		ED482AAB2A6E17780009555E /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				ED0714502A6D50EF00DEDCCB /* ContentType.swift */,
 				ED482AAC2A6E17830009555E /* Contentable.swift */,
 				ED482AB02A6E70210009555E /* ImageContent.swift */,
 				ED482AAE2A6E700C0009555E /* SquareContent.swift */,
@@ -166,6 +167,8 @@
 				EDE53CEE2A68EE58000D4895 /* SlideManager.swift */,
 				EDE53CDA2A65A38E000D4895 /* SlideFactory.swift */,
 				ED482AB62A6EC5680009555E /* SlideFactoryProducer.swift */,
+				ED6F32C52A713F9F0095BB6C /* IDManager.swift */,
+				ED6F32C72A71403D0095BB6C /* ContentType.swift */,
 			);
 			path = Manage;
 			sourceTree = "<group>";
@@ -419,14 +422,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED6F32C62A713F9F0095BB6C /* IDManager.swift in Sources */,
 				EDE53CAA2A657FCD000D4895 /* MainViewController.swift in Sources */,
 				ED07144D2A6D473600DEDCCB /* SlideView.swift in Sources */,
-				ED0714512A6D50EF00DEDCCB /* ContentType.swift in Sources */,
 				EDE53CA62A657FCD000D4895 /* AppDelegate.swift in Sources */,
 				EDE53CDB2A65A38E000D4895 /* SlideFactory.swift in Sources */,
 				EDE53CEF2A68EE58000D4895 /* SlideManager.swift in Sources */,
 				ED482AAF2A6E700C0009555E /* SquareContent.swift in Sources */,
 				ED0714532A6D51EC00DEDCCB /* ImageContentView.swift in Sources */,
+				ED6F32C82A71403D0095BB6C /* ContentType.swift in Sources */,
 				EDE53CE82A66A5A5000D4895 /* SquareContentView.swift in Sources */,
 				ED6969192A69827700FF0DD1 /* ContentPropertyView.swift in Sources */,
 				EDE53CDF2A66841B000D4895 /* RGBColor.swift in Sources */,

@@ -7,6 +7,12 @@ protocol ContentPropertyViewDelegate: AnyObject {
 }
 
 final class ContentPropertyView: SideView {
+    
+    enum ContentSize {
+        static let contentHeight: CGFloat = 30
+        static let cornerRadius: CGFloat = 5
+    }
+    
     var content: (any Contentable)?
     
     weak var delegate: ContentPropertyViewDelegate?
@@ -38,41 +44,41 @@ final class ContentPropertyView: SideView {
     }
     
     func setBackGroundColorLabel() {
-        backGroundColorLabel.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding, width: ConstantSize.sideViewWidth - 2*ConstantSize.padding, height: ConstantSize.contentHeight)
+        backGroundColorLabel.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding, width: ConstantSize.sideViewWidth - 2*ConstantSize.padding, height: ContentSize.contentHeight)
         backGroundColorLabel.text = "배경색"
         backGroundColorLabel.textColor = .black
-        backGroundColorLabel.font = UIFont(name: "", size: ConstantSize.contentHeight)
+        backGroundColorLabel.font = UIFont(name: "", size: ContentSize.contentHeight)
     }
     
     func setBackGroundColorPickerButton() {
         backGroundColorPickerButton.setTitle(backGroundColorPickerButtonTitle, for: .normal)
         backGroundColorPickerButton.tintColor = .black
-        backGroundColorPickerButton.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding + ConstantSize.contentHeight, width: ConstantSize.sideViewWidth - 2*ConstantSize.padding, height: ConstantSize.contentHeight)
-        backGroundColorPickerButton.layer.cornerRadius = ConstantSize.cornerRadius
+        backGroundColorPickerButton.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding + ContentSize.contentHeight, width: ConstantSize.sideViewWidth - 2*ConstantSize.padding, height: ContentSize.contentHeight)
+        backGroundColorPickerButton.layer.cornerRadius = ContentSize.cornerRadius
         backGroundColorPickerButton.isEnabled = false
     }
     
     func setAlphaLabel() {
-        alphaLabel.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding + ConstantSize.contentHeight * 2, width: ConstantSize.sideViewWidth - 2*ConstantSize.padding, height: ConstantSize.contentHeight)
+        alphaLabel.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding + ContentSize.contentHeight * 2, width: ConstantSize.sideViewWidth - 2*ConstantSize.padding, height: ContentSize.contentHeight)
         alphaLabel.text = "투명도"
         alphaLabel.textColor = .black
-        alphaLabel.font = UIFont(name: "", size: ConstantSize.contentHeight)
+        alphaLabel.font = UIFont(name: "", size: ContentSize.contentHeight)
     }
     
     func setAlphaView() {
-        alphaView.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding + ConstantSize.contentHeight * 3, width: (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3, height: ConstantSize.contentHeight)
+        alphaView.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding + ContentSize.contentHeight * 3, width: (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3, height: ContentSize.contentHeight)
         alphaView.text = ""
         alphaView.textColor = .black
         alphaView.clipsToBounds = true
-        alphaView.layer.cornerRadius = ConstantSize.cornerRadius
+        alphaView.layer.cornerRadius = ContentSize.cornerRadius
 
-        alphaView.font = UIFont(name: "", size: ConstantSize.contentHeight)
+        alphaView.font = UIFont(name: "", size: ContentSize.contentHeight)
         alphaView.backgroundColor = .white
         alphaView.textAlignment = .right
     }
     
     func setStepperView() {
-        stepperView.frame = CGRect(x: ConstantSize.padding*2 + (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3, y: ConstantSize.padding + ConstantSize.contentHeight * 3, width: (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3 * 2, height: ConstantSize.contentHeight)
+        stepperView.frame = CGRect(x: ConstantSize.padding*2 + alphaView.frame.width, y: ConstantSize.padding + ContentSize.contentHeight * 3, width: (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3 * 2, height: ContentSize.contentHeight)
         stepperView.value = Double(content!.alpha.rawValue)
         stepperView.maximumValue = 10
         stepperView.minimumValue = 1
