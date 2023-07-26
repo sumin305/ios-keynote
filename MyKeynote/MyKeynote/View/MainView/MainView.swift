@@ -38,8 +38,11 @@ final class MainView: UIView {
         addSubview(contentPropertyView)
     }
     
-    func setDelegate(viewController: ContentPropertyViewDelegate & SlideViewDelegate) {
-        contentPropertyView.delegate = viewController
-        slideView.delegate = viewController
+    func setContentPropertyViewDelegate(delegatable: ContentPropertyViewDelegate) {
+        contentPropertyView.setContentPropertyViewDelegate(delegatable: delegatable)
+    }
+    
+    func setTapGestureDelegate(delegatable: TapGestureDelegate) {
+        slideView.setTapGestureDelegate(delegatable: delegatable)
     }
 }
