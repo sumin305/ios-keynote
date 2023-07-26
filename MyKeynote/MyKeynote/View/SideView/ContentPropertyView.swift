@@ -6,7 +6,7 @@ protocol ContentPropertyViewDelegate: AnyObject {
     func stepperPressed(value: Int)
 }
 
-final class ContentPropertyView: SideView, UIColorPickerViewControllerDelegate {
+final class ContentPropertyView: SideView {
     var content: any Contentable
     
     weak var delegate: ContentPropertyViewDelegate?
@@ -128,4 +128,9 @@ final class ContentPropertyView: SideView, UIColorPickerViewControllerDelegate {
     @objc func stepperPressed(_ sender: UIStepper) {
         delegate?.stepperPressed(value: Int(sender.value))
     }
+    
+    func setContentPropertyViewDelegate(delegatable: ContentPropertyViewDelegate) {
+        self.delegate = delegatable
+    }
 }
+

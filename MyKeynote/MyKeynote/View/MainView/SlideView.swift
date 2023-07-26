@@ -1,10 +1,10 @@
 import UIKit
-protocol SlideViewDelegate: AnyObject {
+protocol TapGestureDelegate: AnyObject {
     func tapGestureRecognized(_ sender: UITapGestureRecognizer)
 }
 final class SlideView: UIView {
     
-    weak var delegate: SlideViewDelegate?
+    weak var delegate: TapGestureDelegate?
     var slide: any Slidable // View에서 모델을 프로퍼티로 가지고 있는게 맞냐?
     var contentView: ContentView!
     
@@ -17,7 +17,7 @@ final class SlideView: UIView {
         
         let contentViewFactory = ContentViewFactory()
         guard let content = slide.content else { return }
-        contentView = contentViewFactory.createContentView(content: content)
+        contentView = contentViewFactory.createSquareContentView(content: content)
         addSubview(contentView)
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         addGestureRecognizer(tapGestureRecognizer)
@@ -29,6 +29,10 @@ final class SlideView: UIView {
     
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         delegate?.tapGestureRecognized(sender)
+    }
+    
+    func setTapGestureDelegate(delegatable: TapGestureDelegate) {
+        self.delegate = delegatable
     }
 }
 

@@ -19,6 +19,7 @@
 		ED482AB72A6EC5680009555E /* SlideFactoryProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED482AB62A6EC5680009555E /* SlideFactoryProducer.swift */; };
 		ED6969192A69827700FF0DD1 /* ContentPropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6969182A69827700FF0DD1 /* ContentPropertyView.swift */; };
 		ED69691C2A6982A200FF0DD1 /* SlideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED69691B2A6982A200FF0DD1 /* SlideListView.swift */; };
+		ED8BBD9D2A70DC03009F22A7 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8BBD9C2A70DC03009F22A7 /* StringExtension.swift */; };
 		EDE53CA62A657FCD000D4895 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CA52A657FCD000D4895 /* AppDelegate.swift */; };
 		EDE53CA82A657FCD000D4895 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CA72A657FCD000D4895 /* SceneDelegate.swift */; };
 		EDE53CAA2A657FCD000D4895 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CA92A657FCD000D4895 /* MainViewController.swift */; };
@@ -32,7 +33,7 @@
 		EDE53CDB2A65A38E000D4895 /* SlideFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CDA2A65A38E000D4895 /* SlideFactory.swift */; };
 		EDE53CDD2A6683E0000D4895 /* AlphaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CDC2A6683E0000D4895 /* AlphaType.swift */; };
 		EDE53CDF2A66841B000D4895 /* RGBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CDE2A66841B000D4895 /* RGBColor.swift */; };
-		EDE53CE12A668DE0000D4895 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CE02A668DE0000D4895 /* Extension.swift */; };
+		EDE53CE12A668DE0000D4895 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CE02A668DE0000D4895 /* UIColorExtension.swift */; };
 		EDE53CE42A669DCC000D4895 /* ConstantSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CE32A669DCC000D4895 /* ConstantSize.swift */; };
 		EDE53CE62A66A154000D4895 /* SideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CE52A66A154000D4895 /* SideView.swift */; };
 		EDE53CE82A66A5A5000D4895 /* SquareContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE53CE72A66A5A5000D4895 /* SquareContentView.swift */; };
@@ -69,6 +70,7 @@
 		ED482AB62A6EC5680009555E /* SlideFactoryProducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideFactoryProducer.swift; sourceTree = "<group>"; };
 		ED6969182A69827700FF0DD1 /* ContentPropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPropertyView.swift; sourceTree = "<group>"; };
 		ED69691B2A6982A200FF0DD1 /* SlideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideListView.swift; sourceTree = "<group>"; };
+		ED8BBD9C2A70DC03009F22A7 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		EDE53CA22A657FCD000D4895 /* MyKeynote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyKeynote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDE53CA52A657FCD000D4895 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDE53CA72A657FCD000D4895 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,7 +88,7 @@
 		EDE53CDA2A65A38E000D4895 /* SlideFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideFactory.swift; sourceTree = "<group>"; };
 		EDE53CDC2A6683E0000D4895 /* AlphaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaType.swift; sourceTree = "<group>"; };
 		EDE53CDE2A66841B000D4895 /* RGBColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBColor.swift; sourceTree = "<group>"; };
-		EDE53CE02A668DE0000D4895 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		EDE53CE02A668DE0000D4895 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		EDE53CE32A669DCC000D4895 /* ConstantSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantSize.swift; sourceTree = "<group>"; };
 		EDE53CE52A66A154000D4895 /* SideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideView.swift; sourceTree = "<group>"; };
 		EDE53CE72A66A5A5000D4895 /* SquareContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareContentView.swift; sourceTree = "<group>"; };
@@ -133,7 +135,8 @@
 			isa = PBXGroup;
 			children = (
 				EDE53CE32A669DCC000D4895 /* ConstantSize.swift */,
-				EDE53CE02A668DE0000D4895 /* Extension.swift */,
+				EDE53CE02A668DE0000D4895 /* UIColorExtension.swift */,
+				ED8BBD9C2A70DC03009F22A7 /* StringExtension.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -432,7 +435,7 @@
 				ED482AAD2A6E17830009555E /* Contentable.swift in Sources */,
 				ED07144B2A6D46A300DEDCCB /* MainView.swift in Sources */,
 				EDE53CD92A65A02C000D4895 /* SquareSlide.swift in Sources */,
-				EDE53CE12A668DE0000D4895 /* Extension.swift in Sources */,
+				EDE53CE12A668DE0000D4895 /* UIColorExtension.swift in Sources */,
 				ED482AB72A6EC5680009555E /* SlideFactoryProducer.swift in Sources */,
 				ED482AB12A6E70210009555E /* ImageContent.swift in Sources */,
 				EDE53CE62A66A154000D4895 /* SideView.swift in Sources */,
@@ -440,6 +443,7 @@
 				EDE53CDD2A6683E0000D4895 /* AlphaType.swift in Sources */,
 				EDE53CA82A657FCD000D4895 /* SceneDelegate.swift in Sources */,
 				EDE53CD72A659D3C000D4895 /* Slidable.swift in Sources */,
+				ED8BBD9D2A70DC03009F22A7 /* StringExtension.swift in Sources */,
 				ED482AB32A6E70980009555E /* ImageSlide.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

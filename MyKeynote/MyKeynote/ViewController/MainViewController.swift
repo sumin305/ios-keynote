@@ -24,12 +24,12 @@ class MainViewController: UIViewController {
         mainView = MainView(slideManager: slideManager)
         view.backgroundColor = UIColor(named: "SuperViewColor")
         view.addSubview(mainView)
-        mainView.setDelegate(viewController: self)
+        mainView.setTapGestureDelegate(delegatable: self)
+        mainView.setContentPropertyViewDelegate(delegatable: self)
     }
-    
 }
 // MARK: - 이벤트 설정
-extension MainViewController: UIColorPickerViewControllerDelegate, ContentPropertyViewDelegate, SlideViewDelegate {
+extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDelegate, ContentPropertyViewDelegate {
 
     func colorPickerButtonTapped() {
         let backGroundColorPicker = UIColorPickerViewController()
@@ -60,7 +60,7 @@ extension MainViewController: UIColorPickerViewControllerDelegate, ContentProper
         // Model
         slideManager.changeAlpha(alpha: AlphaType(rawValue: value) ?? .one)
         // View
-        (mainView.slideView.contentView).changeAlphaValue(value: value)
+        (mainView.slideView.contentView).changeAlphaValue(alpha: AlphaType(rawValue: value)!)
         mainView.contentPropertyView.alphaView.text = "\(slideManager.getContentAlpha().rawValue)"
     }
 
