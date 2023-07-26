@@ -69,26 +69,24 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
         let targetFrame = frame
         
         if targetFrame.contains(tapLocation) {
-            changeViewByContentClicked(isContentClicked: true)
-
+            enableView()
         } else {
-            changeViewByContentClicked(isContentClicked: false)
-
+            disableView()
         }
     }
 
-    func changeViewByContentClicked(isContentClicked: Bool) {
+    func enableView() {
         let content = slideManager.getContent()
-        if isContentClicked {
-            if let c = content as? SquareContent {
-                mainView.enableContentPropertyViewColor(color: UIColor(color: c.rgbColor, alpha: .one))
-            }
-            mainView.enableContentPropertyViewAlpha(alpha: content.alpha)
-            mainView.enableContentViewBorder()
-        } else {
-            mainView.disableContentPropertyView()
-            mainView.disableContentViewBorder()
+        if let c = content as? SquareContent {
+            mainView.enableContentPropertyViewColor(color: UIColor(color: c.rgbColor, alpha: .one))
         }
+        mainView.enableContentPropertyViewAlpha(alpha: content.alpha)
+        mainView.enableContentViewBorder()
+    }
+    
+    func disableView() {
+        mainView.disableContentPropertyView()
+        mainView.disableContentViewBorder()
     }
 }
 
