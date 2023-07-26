@@ -23,7 +23,7 @@ final class MainView: UIView {
     
     func initUI(slides: [any Slidable], selectedIndex: Int) {
         slideView = SlideView(slide: slides[selectedIndex])
-        contentPropertyView = ContentPropertyView(content: slides[selectedIndex].content!)
+        contentPropertyView = ContentPropertyView(content: slides[selectedIndex].content ?? ImageContent(alpha: .one, height: 100, width: 100))
         slideListView = SlideListView(slideArray: slides)
     }
     

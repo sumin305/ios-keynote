@@ -5,8 +5,8 @@ final class SlideManager {
     private var slideArray: [any Slidable] = []
     private var currentSlideIndex: Int = 0
     
-    func produceRandomSlide(contentType: ContentType) -> any Slidable {
-        let slideFactory = SlideFactoryProducer.getFactory(contentType: contentType)
+    func produceRandomSlide() -> any Slidable {
+        let slideFactory = SlideFactoryProducer.getFactory(contentType: ContentType.allCases.randomElement()!)
         return slideFactory.getRandomSlide()
     }
     
@@ -16,7 +16,7 @@ final class SlideManager {
     }
     
     func addRandomSlide() {
-        let slide = produceRandomSlide(contentType: .square) // 테스트를 위해 정사각 슬라이드 생성
+        let slide = produceRandomSlide() // 테스트를 위해 정사각 슬라이드 생성
         slideArray.append(slide)
     }
     

@@ -2,10 +2,9 @@ import Foundation
 
 final class SlideFactoryProducer {
     static func getFactory(contentType: ContentType) -> SlideFactory {
-        if contentType == .square {
-            return SquareSlideFactory()
-        } else {
-            return ImageSlideFactory()
+        switch contentType {
+            case .square: return SquareSlideFactory()
+            default: return ImageSlideFactory()
         }
     }
 }
