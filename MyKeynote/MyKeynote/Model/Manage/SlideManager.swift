@@ -6,7 +6,8 @@ final class SlideManager {
     private var currentSlideIndex: Int = 0
     
     func produceRandomSlide() -> any Slidable {
-        let slideFactory = SlideFactoryProducer.getFactory(contentType: ContentType.allCases.randomElement()!)
+//        let slideFactory = SlideFactoryProducer.getFactory(contentType: ContentType.allCases.randomElement()!)
+        let slideFactory = SlideFactoryProducer.getFactory(contentType: .square)
         return slideFactory.getRandomSlide()
     }
     
@@ -18,6 +19,8 @@ final class SlideManager {
     func addRandomSlide() {
         let slide = produceRandomSlide() // 테스트를 위해 정사각 슬라이드 생성
         slideArray.append(slide)
+        NotificationCenter.default.post(name: Notification.Name.slideAdded, object: self,
+                                        userInfo: ["slide":slideArray.last!])
     }
     
     func getSlideCount() -> Int {
@@ -60,6 +63,6 @@ final class SlideManager {
 
 extension Notification.Name {
     static let colorChanged = Notification.Name("colorChanged")
-    
     static let alphaChanged = Notification.Name("alphaChanged")
+    static let slideAdded = Notification.Name("slideAdded")
 }

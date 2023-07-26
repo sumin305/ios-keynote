@@ -12,6 +12,7 @@ class MainViewController: UIViewController {
         slideManager.addRandomSlide() //메인뷰에 메서드 만들어라
         NotificationCenter.default.addObserver(self, selector: #selector(didAlphaChanged), name: Notification.Name.alphaChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didColorChanged), name: Notification.Name.colorChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSlideAdded), name: Notification.Name.slideAdded, object: nil)
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -30,7 +31,7 @@ class MainViewController: UIViewController {
     }
 }
 // MARK: - 이벤트 설정
-extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDelegate, ContentPropertyViewDelegate {
+extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDelegate, ContentPropertyViewDelegate, SlideListViewDelegate {
 
     func colorPickerButtonTapped(sourceButton: UIView) {
         let backGroundColorPicker = UIColorPickerViewController()
@@ -81,6 +82,11 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
         mainView.disableContentViewBorder()
     }
     
+    // MARK: - 슬라이드 추가 버튼 클릭
+    func addSlide() {
+        slideManager.addRandomSlide()
+    }
+
     @objc func didAlphaChanged(_ sender: Notification) {
         
         guard let value = (sender.userInfo?["alpha"] as? AlphaType)?.rawValue else { return }
@@ -100,6 +106,9 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
         mainView.changeContentPropertyViewColorText(text: color.hexadecimal)
     }
     
-  
+    @objc func didSlideAdded(_ sender: Notification) {
+        print("@@@@@@@@@@@")
+        slideManager.getSlides().forEach{ print(($0 as! SquareSlide).description) }
+    }
 }
 
