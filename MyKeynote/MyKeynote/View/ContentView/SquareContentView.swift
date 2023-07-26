@@ -4,12 +4,13 @@ import UIKit
 protocol ContentView: UIView {
     var content: any Contentable { get set }
     func setFrame()
-    func changeAlphaValue(alpha: AlphaType)
-    func changeBorder(isClicked: Bool)
+    func changeContentViewAlpha(alpha: AlphaType)
+    func enableContentViewBorder()
+    func disableContentViewBorder()
 }
 
 final class SquareContentView: UIView, ContentView {
-    
+
     var content: any Contentable
     init(content: any Contentable) {
         self.content = content
@@ -37,17 +38,20 @@ final class SquareContentView: UIView, ContentView {
         backgroundColor = color
     }
     
-    func changeAlphaValue(alpha: AlphaType) {
+    func changeContentViewAlpha(alpha: AlphaType) {
         // alpha가 변할 때 border의 투명도도 변하지 않도록 alpha = 이렇게 안하고 backgroundColor 변경
         backgroundColor = self.backgroundColor?.withAlphaComponent(alpha.alphaValue)
     }
     
-    func changeBorder(isClicked: Bool) {
-        if isClicked {
-            layer.borderWidth = 5
-            layer.borderColor = UIColor.black.cgColor
-        } else {
-            layer.borderWidth = 0
-        }
+    func changeContentBackgroundColor(color: UIColor) {
+        backgroundColor = color
+    }
+    
+    func enableContentViewBorder() {
+        layer.borderWidth = 5
+        layer.borderColor = UIColor.black.cgColor
+    }
+    func disableContentViewBorder() {
+        layer.borderWidth = 0
     }
 }

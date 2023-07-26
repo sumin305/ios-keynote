@@ -9,7 +9,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         slideManager = SlideManager()
         slideManager.getFourSquareSlide() // 미션 3-1 수행
-        slideManager.addRandomSlide()
+        slideManager.addRandomSlide() //메인뷰에 메서드 만들어라
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -21,11 +21,10 @@ class MainViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        mainView = MainView(slideManager: slideManager)
+        mainView = MainView(slides: slideManager.getSlides(), selectedIndex: slideManager.getSlideIndex())
         view.backgroundColor = UIColor(named: "SuperViewColor")
         view.addSubview(mainView)
-        mainView.setTapGestureDelegate(delegatable: self)
-        mainView.setContentPropertyViewDelegate(delegatable: self)
+        mainView.setSubViewDelegate(delegatable: self)
     }
 }
 // MARK: - 이벤트 설정
@@ -37,22 +36,22 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
         backGroundColorPicker.supportsAlpha = false
         backGroundColorPicker.delegate = self
         backGroundColorPicker.modalPresentationStyle = .popover
-
-        backGroundColorPicker.popoverPresentationController?.sourceView = mainView.contentPropertyView.backGroundColorPickerButton
+//        backGroundColorPicker.popoverPresentationController?.sourceView = mainView.contentPropertyView.backGroundColorPickerButton
         present(backGroundColorPicker, animated: true, completion: nil)
     }
     
     // MARK: - 색상 변경
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-        let squareSlideContent = (slideManager.slideArray[slideManager.currentSlideIndex].content as! SquareContent)
+        let squareSlideContent = (slideManager.getSlides()[slideManager.getSlideIndex()].content as! SquareContent)
         let color = viewController.selectedColor
         // Model
         slideManager.changeRGBColor(color: RGBColor(red: color.redToUInt8, green: color.greenToUInt8, blue: color.blueToUInt8))
+        
         // view
-        (mainView.slideView.contentView as? SquareContentView)?.changeBackgroundColor(color: color.withAlphaComponent((squareSlideContent.alpha.alphaValue)))
-        mainView.contentPropertyView.changeContent(content: squareSlideContent)
-        print((slideManager.slideArray[slideManager.currentSlideIndex] as! SquareSlide).description)
-
+        mainView.changeContentViewBackgroundColor(color: color.withAlphaComponent(squareSlideContent.alpha.alphaValue))
+       
+        mainView.changeContentPropertyViewColor(color: color)
+        mainView.changeContentPropertyViewColorText(text: color.hexadecimal)
     }
     
     // MARK: - Stepper 변경
@@ -60,16 +59,16 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
         // Model
         slideManager.changeAlpha(alpha: AlphaType(rawValue: value) ?? .one)
         // View
-        (mainView.slideView.contentView).changeAlphaValue(alpha: AlphaType(rawValue: value)!)
-        mainView.contentPropertyView.alphaView.text = "\(slideManager.getContentAlpha().rawValue)"
+        mainView.changeContentViewAlpha(alpha: AlphaType(rawValue: value)!)
+        mainView.changeAlphaText(text: String(value))
     }
 
     // MARK: - 정사각형 클릭
-    func tapGestureRecognized(_ sender: UITapGestureRecognizer) {
-        let tapLocation = sender.location(in: mainView.slideView)
-        let targetFrame = mainView.slideView.contentView?.frame
+    func tapGestureRecognized(_ sender: UITapGestureRecognizer, frame: CGRect) {
+        let tapLocation = sender.location(in: mainView)
+        let targetFrame = frame
         
-        if targetFrame!.contains(tapLocation) {
+        if targetFrame.contains(tapLocation) {
             changeViewByContentClicked(isContentClicked: true)
         } else {
             changeViewByContentClicked(isContentClicked: false)
@@ -78,9 +77,15 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
 
     func changeViewByContentClicked(isContentClicked: Bool) {
         let content = slideManager.getContent()
-
-        mainView.contentPropertyView.changeSideContent(content: content, isSquareClicked: isContentClicked)
-        (mainView.slideView.contentView)?.changeBorder(isClicked: isContentClicked)
+        if isContentClicked {
+            if let c = content as? SquareContent {
+                mainView.enableContentPropertyViewColor(color: UIColor(color: c.rgbColor, alpha: .one))
+            }
+            mainView.enableContentPropertyViewAlpha(alpha: content.alpha)
+            mainView.enableContentViewBorder()
+        } else {
+            mainView.disableContentViewBorder()
+        }
     }
 }
 

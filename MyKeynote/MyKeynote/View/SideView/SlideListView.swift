@@ -3,7 +3,7 @@ import UIKit
 
 final class SlideListView: SideView {
     
-    var slideArray: [any Slidable]
+    private var slideArray: [any Slidable]
 
     init(slideArray: [any Slidable]) {
         self.slideArray = slideArray

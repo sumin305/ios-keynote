@@ -2,8 +2,8 @@ import Foundation
 
 final class SlideManager {
     
-    var slideArray: [any Slidable] = []
-    var currentSlideIndex: Int = 0
+    private var slideArray: [any Slidable] = []
+    private var currentSlideIndex: Int = 0
     
     func produceRandomSlide(contentType: ContentType) -> any Slidable {
         let slideFactory = SlideFactoryProducer.getFactory(contentType: contentType)
@@ -39,6 +39,13 @@ final class SlideManager {
     
     func getContent() -> Contentable {
         return (slideArray[currentSlideIndex].content)!
+    }
+    
+    func getSlides() -> [any Slidable] {
+        return slideArray
+    }
+    func getSlideIndex() -> Int {
+        return currentSlideIndex
     }
     
     subscript(index: Int) -> (any Slidable)? {
