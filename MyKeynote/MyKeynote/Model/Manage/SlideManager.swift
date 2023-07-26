@@ -26,10 +26,14 @@ final class SlideManager {
     
     func changeRGBColor(color: RGBColor) {
         (slideArray[currentSlideIndex].content as? SquareContent)?.changeRGBColor(color: color)
+        NotificationCenter.default.post(name: Notification.Name.colorChanged, object: slideArray[currentSlideIndex].content,
+                                        userInfo: ["color":color])
     }
     
     func changeAlpha(alpha: AlphaType) {
         slideArray[currentSlideIndex].content?.changeAlpha(alpha: alpha)
+        NotificationCenter.default.post(name: Notification.Name.alphaChanged, object: slideArray[currentSlideIndex].content,
+                                        userInfo: ["alpha":alpha])
     }
     
     func getContentAlpha() -> AlphaType {
@@ -53,3 +57,9 @@ final class SlideManager {
     }
 }
 
+
+extension Notification.Name {
+    static let colorChanged = Notification.Name("colorChanged")
+    
+    static let alphaChanged = Notification.Name("alphaChanged")
+}
