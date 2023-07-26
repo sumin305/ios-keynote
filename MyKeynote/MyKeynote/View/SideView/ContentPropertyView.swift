@@ -7,7 +7,7 @@ protocol ContentPropertyViewDelegate: AnyObject {
 }
 
 final class ContentPropertyView: SideView {
-    var content: any Contentable
+    var content: (any Contentable)?
     
     weak var delegate: ContentPropertyViewDelegate?
     
@@ -30,7 +30,7 @@ final class ContentPropertyView: SideView {
         addTarget()
     }
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     override func setFrame() {
@@ -73,7 +73,7 @@ final class ContentPropertyView: SideView {
     
     func setStepperView() {
         stepperView.frame = CGRect(x: ConstantSize.padding*2 + (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3, y: ConstantSize.padding + ConstantSize.contentHeight * 3, width: (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3 * 2, height: ConstantSize.contentHeight)
-        stepperView.value = Double(content.alpha.rawValue)
+        stepperView.value = Double(content!.alpha.rawValue)
         stepperView.maximumValue = 10
         stepperView.minimumValue = 1
         stepperView.stepValue = 1

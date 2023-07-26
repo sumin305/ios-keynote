@@ -1,11 +1,9 @@
 import Foundation
 import UIKit
 
-final class ImageContentView: UIView, ContentView {
-    var content: any Contentable
+final class ImageContentView: UIView, ContentView {    
 
     init(content: any Contentable) {
-        self.content = content
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     }
     func setFrame() {
@@ -13,7 +11,7 @@ final class ImageContentView: UIView, ContentView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     func changeAlphaValue(alpha: AlphaType) {
