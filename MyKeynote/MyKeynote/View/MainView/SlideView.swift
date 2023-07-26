@@ -1,12 +1,12 @@
 import UIKit
 protocol TapGestureDelegate: AnyObject {
-    func tapGestureRecognized(_ sender: UITapGestureRecognizer)
+    func tapGestureRecognized(_ sender: UITapGestureRecognizer, frame: CGRect)
 }
 final class SlideView: UIView {
     
     weak var delegate: TapGestureDelegate?
     var slide: any Slidable // View에서 모델을 프로퍼티로 가지고 있는게 맞냐?
-    var contentView: ContentView!
+    private var contentView: ContentView!
     
     
     init(slide: any Slidable) {
@@ -15,9 +15,8 @@ final class SlideView: UIView {
         backgroundColor = .white
         frame = CGRect(x: ConstantSize.sideViewWidth, y: ConstantSize.paddingHeight, width: ConstantSize.middleViewWidth, height: ConstantSize.middleViewHeight)
         
-        let contentViewFactory = ContentViewFactory()
         guard let content = slide.content else { return }
-        contentView = contentViewFactory.createSquareContentView(content: content)
+        contentView = ContentViewFactory.createSquareContentView(content: content)
         addSubview(contentView)
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         addGestureRecognizer(tapGestureRecognizer)
@@ -28,9 +27,21 @@ final class SlideView: UIView {
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
-        delegate?.tapGestureRecognized(sender)
+        delegate?.tapGestureRecognized(sender, frame: contentView.frame)
+    }
+    func changeContentViewAlpha(alpha: AlphaType) {
+        contentView.changeContentViewAlpha(alpha: alpha)
     }
     
+    func changeContentBackgroundColor(color: UIColor) {
+        (contentView as? SquareContentView)!.changeContentBackgroundColor(color: color)
+    }
+    func enableContentViewBorder() {
+        contentView.enableContentViewBorder()
+    }
+    func disableContentViewBorder() {
+        contentView.disableContentViewBorder()
+    }
     func setTapGestureDelegate(delegatable: TapGestureDelegate) {
         self.delegate = delegatable
     }
