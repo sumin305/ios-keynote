@@ -13,25 +13,21 @@ final class ContentPropertyView: SideView {
         static let cornerRadius: CGFloat = 5
     }
     
-    var content: (any Contentable)?
-    
     weak var delegate: ContentPropertyViewDelegate?
     
-    let backGroundColorLabel = UILabel()
-    let backGroundColorPickerButton = UIButton(type: .system)
-    let alphaLabel = UILabel()
-    let alphaView = UILabel()
-    let stepperView = UIStepper()
-    var backGroundColorPickerButtonTitle = ""
+    private let backGroundColorLabel = UILabel()
+    private let backGroundColorPickerButton = UIButton(type: .system)
+    private let alphaLabel = UILabel()
+    private let alphaView = UILabel()
+    private let stepperView = UIStepper()
     
     init(content: any Contentable) {
-        self.content = content
         super.init()
         setBackGroundColorLabel()
-        setBackGroundColorPickerButton()
+        setBackGroundColorPickerButton(content: content)
         setAlphaLabel()
-        setAlphaView()
-        setStepperView()
+        setAlphaView(content: content)
+        setStepperView(content: content)
         addRightSideSubviews()
         addTarget()
     }
@@ -50,10 +46,10 @@ final class ContentPropertyView: SideView {
         backGroundColorLabel.font = UIFont(name: "", size: ContentSize.contentHeight)
     }
     
-    func setBackGroundColorPickerButton() {
-        backGroundColorPickerButton.setTitle(UIColor(color: (content as? SquareContent)!.rgbColor, alpha: .one).hexadecimal, for: .normal)
+    func setBackGroundColorPickerButton(content: any Contentable) {
+        backGroundColorPickerButton.setTitle(UIColor(color: (content as? SquareContent)?.rgbColor ?? RGBColor(red: 10, green: 10, blue: 10), alpha: .one).hexadecimal, for: .normal)
         backGroundColorPickerButton.tintColor = .black
-        backGroundColorPickerButton.backgroundColor = UIColor(color: (content as? SquareContent)!.rgbColor, alpha: .one)
+        backGroundColorPickerButton.backgroundColor = UIColor(color: (content as? SquareContent)?.rgbColor ?? RGBColor(red: 10, green: 10, blue: 10), alpha: .one)
         backGroundColorPickerButton.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding + ContentSize.contentHeight, width: ConstantSize.sideViewWidth - 2*ConstantSize.padding, height: ContentSize.contentHeight)
         backGroundColorPickerButton.layer.cornerRadius = ContentSize.cornerRadius
         backGroundColorPickerButton.isEnabled = true
@@ -66,9 +62,9 @@ final class ContentPropertyView: SideView {
         alphaLabel.font = UIFont(name: "", size: ContentSize.contentHeight)
     }
     
-    func setAlphaView() {
+    func setAlphaView(content: any Contentable) {
         alphaView.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding + ContentSize.contentHeight * 3, width: (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3, height: ContentSize.contentHeight)
-        alphaView.text = "\(content!.alpha.rawValue)"
+        alphaView.text = "\(content.alpha.rawValue)"
         alphaView.textColor = .black
         alphaView.clipsToBounds = true
         alphaView.layer.cornerRadius = ContentSize.cornerRadius
@@ -78,9 +74,9 @@ final class ContentPropertyView: SideView {
         alphaView.textAlignment = .right
     }
     
-    func setStepperView() {
-        stepperView.frame = CGRect(x: ConstantSize.padding*2 + alphaView.frame.width, y: ConstantSize.padding + ContentSize.contentHeight * 3, width: (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3 * 2, height: ContentSize.contentHeight)
-        stepperView.value = Double(content!.alpha.rawValue)
+    func setStepperView(content: any Contentable) {
+        stepperView.frame = CGRect(x: ConstantSize.padding*3 + alphaView.frame.width, y: ConstantSize.padding + ContentSize.contentHeight * 3, width: (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3 * 3, height: ContentSize.contentHeight)
+        stepperView.value = Double(content.alpha.rawValue)
         stepperView.maximumValue = 10
         stepperView.minimumValue = 1
         stepperView.stepValue = 1
@@ -123,8 +119,8 @@ final class ContentPropertyView: SideView {
     }
     
     func disableContentPropertyView() {
-        alphaView.text = ""
-        backGroundColorPickerButtonTitle = ""
+        alphaView.text = "x"
+        backGroundColorPickerButton.setTitle("disabled", for: .disabled)
         backGroundColorPickerButton.backgroundColor = UIColor(named: "SideViewColor")
         stepperView.isEnabled = false
         backGroundColorPickerButton.isEnabled = false

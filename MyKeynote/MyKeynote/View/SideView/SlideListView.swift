@@ -7,11 +7,12 @@ protocol SlideListViewDelegate: AnyObject {
 
 final class SlideListView: SideView {
     
-    var slideAddButton: UIButton!
     var slideListTableView: UITableView!
+    var slideAddButton: UIButton!
     
     weak var delegate: SlideListViewDelegate?
-    init(slideArray: [any Slidable]) {
+    
+    override init() {
         super.init()
         setSlideAddButton()
         setSlideListTableView()
@@ -52,19 +53,16 @@ final class SlideListView: SideView {
     }
     
     func updateSlideList(slide: any Slidable) {
-//        slideListTableView.insertRows(at: IndexPath[], with: .automatic)
         slideListTableView.reloadData()
     }
 }
 
 extension SlideListView {
-    
     enum Size {
         static let buttonHeight: CGFloat = ConstantSize.totalHeight / 13
         static let slideListHeight: CGFloat = ConstantSize.totalHeight / 10
         static let cornerRadius: CGFloat = 5
     }
-    
     func setSlideAddButtonDelegate(delegatable: SlideListViewDelegate) {
         self.delegate = delegatable
     }

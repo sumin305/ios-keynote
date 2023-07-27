@@ -189,8 +189,8 @@
 		ED69691D2A69840E00FF0DD1 /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
-				EDE53CE72A66A5A5000D4895 /* SquareContentView.swift */,
 				ED07144E2A6D4E5A00DEDCCB /* ContentViewFactory.swift */,
+				EDE53CE72A66A5A5000D4895 /* SquareContentView.swift */,
 				ED0714522A6D51EC00DEDCCB /* ImageContentView.swift */,
 			);
 			path = ContentView;
