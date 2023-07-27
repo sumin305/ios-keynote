@@ -10,6 +10,7 @@ class MainViewController: UIViewController {
         slideManager = SlideManager()
         slideManager.getFourSquareSlide() // 미션 3-1 수행
         slideManager.addRandomSlide() //메인뷰에 메서드 만들어라
+
         NotificationCenter.default.addObserver(self, selector: #selector(didAlphaChanged), name: Notification.Name.alphaChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didColorChanged), name: Notification.Name.colorChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didSlideAdded), name: Notification.Name.slideAdded, object: nil)
@@ -98,10 +99,12 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
     }
     
     @objc func didSlideAdded(_ sender: Notification) {
-        print("@@@@@@@@@@@")
-        slideManager.getSlides().forEach{ print(($0 as! SquareSlide).description) }
         guard let slide = sender.userInfo?["slide"] as? (any Slidable) else { return }
         mainView.updateSlideList(slide: slide)
+        mainView.redrawSlideView(slide: slide)
+        mainView.redrawContentPropertyView(text: String(slide.content!.alpha.rawValue),
+                                           color: UIColor(color: (slide.content as? SquareContent)!.rgbColor, alpha: slide.content!.alpha))
+        mainView.setSubViewDelegate(delegatable: self)
     }
     
     // MARK: - UITableView
@@ -114,8 +117,9 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
         cell.bind(index: indexPath.row, image: (slideManager[indexPath.row]?.content as? SquareContent) == nil ? "photo.fill" : "rectangle.inset.filled")
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           return 56
-       }
+        return CustomCell.Size.cellHeight
+    }
 }
 

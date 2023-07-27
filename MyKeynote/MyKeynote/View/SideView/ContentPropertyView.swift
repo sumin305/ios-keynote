@@ -51,11 +51,12 @@ final class ContentPropertyView: SideView {
     }
     
     func setBackGroundColorPickerButton() {
-        backGroundColorPickerButton.setTitle(backGroundColorPickerButtonTitle, for: .normal)
+        backGroundColorPickerButton.setTitle(UIColor(color: (content as? SquareContent)!.rgbColor, alpha: .one).hexadecimal, for: .normal)
         backGroundColorPickerButton.tintColor = .black
+        backGroundColorPickerButton.backgroundColor = UIColor(color: (content as? SquareContent)!.rgbColor, alpha: .one)
         backGroundColorPickerButton.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding + ContentSize.contentHeight, width: ConstantSize.sideViewWidth - 2*ConstantSize.padding, height: ContentSize.contentHeight)
         backGroundColorPickerButton.layer.cornerRadius = ContentSize.cornerRadius
-        backGroundColorPickerButton.isEnabled = false
+        backGroundColorPickerButton.isEnabled = true
     }
     
     func setAlphaLabel() {
@@ -67,7 +68,7 @@ final class ContentPropertyView: SideView {
     
     func setAlphaView() {
         alphaView.frame = CGRect(x: ConstantSize.padding, y: ConstantSize.padding + ContentSize.contentHeight * 3, width: (ConstantSize.sideViewWidth - 2*ConstantSize.padding) / 3, height: ContentSize.contentHeight)
-        alphaView.text = ""
+        alphaView.text = "\(content!.alpha.rawValue)"
         alphaView.textColor = .black
         alphaView.clipsToBounds = true
         alphaView.layer.cornerRadius = ContentSize.cornerRadius
@@ -83,7 +84,7 @@ final class ContentPropertyView: SideView {
         stepperView.maximumValue = 10
         stepperView.minimumValue = 1
         stepperView.stepValue = 1
-        stepperView.isEnabled = false
+        stepperView.isEnabled = true
     }
     
     func addRightSideSubviews() {
@@ -105,10 +106,9 @@ final class ContentPropertyView: SideView {
     // MARK: - 정사각 슬라이드 색 변경
     func changeContentPropertyViewColor(color: UIColor) {
         backGroundColorPickerButton.backgroundColor = color.withAlphaComponent(1)
-        backGroundColorPickerButton.setTitle(color.hexadecimal, for: .normal)
     }
     func changeContentPropertyViewColorText(text: String) {
-        backGroundColorPickerButtonTitle = text
+        backGroundColorPickerButton.setTitle(text, for: .normal)
     }
     // MARK: - 활성/ 비활성
     func enableContentPropertyViewColor(color: UIColor) {
@@ -130,6 +130,7 @@ final class ContentPropertyView: SideView {
         backGroundColorPickerButton.isEnabled = false
     }
     
+  
     func setContentPropertyViewDelegate(delegatable: ContentPropertyViewDelegate) {
         self.delegate = delegatable
     }

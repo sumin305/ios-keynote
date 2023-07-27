@@ -19,8 +19,9 @@ final class SlideManager {
     func addRandomSlide() {
         let slide = produceRandomSlide() // 테스트를 위해 정사각 슬라이드 생성
         slideArray.append(slide)
-        NotificationCenter.default.post(name: Notification.Name.slideAdded, object: self,
-                                        userInfo: ["slide":slide])
+        NotificationCenter.default.post(name: Notification.Name.slideAdded,
+                                        object: self,
+                                        userInfo: ["slide":slide, "index":slideArray.count-1])
     }
     
     func getSlideCount() -> Int {
@@ -44,7 +45,7 @@ final class SlideManager {
     }
     
     func getContent() -> Contentable {
-        return (slideArray[currentSlideIndex].content)!
+        return (slideArray.last!.content)!
     }
     
     func getSlides() -> [any Slidable] {
@@ -60,9 +61,9 @@ final class SlideManager {
     }
 }
 
-
+// 이름은 Square, Image 나눌 필요 없음 - 알 필요가 없다
 extension Notification.Name {
-    static let colorChanged = Notification.Name("colorChanged")
+    static let colorChanged = Notification.Name("colorChanged") // 기본 내장 notificationcenter보기
     static let alphaChanged = Notification.Name("alphaChanged")
     static let slideAdded = Notification.Name("slideAdded")
 }

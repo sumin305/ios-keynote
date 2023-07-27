@@ -30,9 +30,8 @@ final class SlideView: UIView {
     func changeContentViewAlpha(alpha: AlphaType) {
         contentView.changeContentViewAlpha(alpha: alpha)
     }
-    
     func changeContentBackgroundColor(color: UIColor) {
-        (contentView as? SquareContentView)!.changeContentBackgroundColor(color: color)
+        (contentView as? SquareContentView)!.setBackgroundColor(color: color)
     }
     func enableContentViewBorder() {
         contentView.enableContentViewBorder()

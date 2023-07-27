@@ -3,27 +3,36 @@ import UIKit
 final class CustomCell: UITableViewCell {
 
     lazy var label: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: Size.labelWidth    , height: Size.cellHeight))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: Size.labelWidth, height: Size.cellHeight))
         label.text = "11"
         label.textColor = .black
         label.textAlignment = .right
         label.backgroundColor = .white
-        label.font = UIFont(name: "", size: 20)
+        label.font = UIFont(name: "", size: 40)
         return label
     }()
-    lazy var outerImageLabel: UIImageView = {
-        let outerImageLabel = UIImageView(frame: CGRect(x: Size.labelWidth, y: 0, width: Size.outerImageLabelWidth, height: Size.cellHeight))
-        outerImageLabel.layer.cornerRadius = 5
+    lazy var outerImageLabel: UIView = {
+        let outerImageLabel = UIView(frame: CGRect(x: Size.labelWidth, y: 0, width: Size.outerImageLabelWidth, height: Size.cellHeight))
+        outerImageLabel.layer.cornerRadius =  10
         outerImageLabel.backgroundColor =  UIColor(named: "OuterCellColor")
-        
+        return outerImageLabel
+    }()
+    
+    lazy var innerImageLabel: UIImageView = {
         let innerImageLabel = UIImageView(frame: CGRect(x: Size.padding, y: Size.padding, width: Size.innerImageLabelWidth, height: Size.innerImageLabelHeight))
         innerImageLabel.backgroundColor = UIColor(named: "InnerCellColor")
-    
-        let imageView = UIImage(systemName: "")
         outerImageLabel.addSubview(innerImageLabel)
-        outerImageLabel.image = imageView
         outerImageLabel.contentMode = .center
-        return outerImageLabel
+        return innerImageLabel
+    }()
+    
+    lazy var imgView: UIImageView = {
+        let imageView = UIImageView(frame: CGRect(x: Size.innerImageLabelWidth / 2 - Size.imageViewWidth / 2, y: Size.innerImageLabelHeight / 2 - Size.imageViewHeight / 2, width: Size.imageViewWidth, height: Size.imageViewHeight))
+        let image = UIImage(systemName: "")
+        imageView.image = image
+        imageView.tintColor = UIColor(named: "CellImageColor")
+        innerImageLabel.addSubview(imageView)
+        return imageView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -42,24 +51,23 @@ final class CustomCell: UITableViewCell {
     }
     
     func setFrame() {
-        frame = CGRect(x: 0, y: 0, width: ConstantSize.sideViewWidth - 2*ConstantSize.padding, height: Size.cellHeight)
-        backgroundColor = .systemPink
+        
     }
     
     func setCell() {
-        addSubview(label)
-        addSubview(outerImageLabel)
+        contentView.addSubview(label)
+        contentView.addSubview(outerImageLabel)
     }
 }
 
 extension CustomCell {
-    func bind(index: Int, image: String) {
+    func bind(index: Int, image: String) { // index -> tableView row
         label.text = String(index+1)
-        outerImageLabel.image = UIImage(systemName: image)
-        print(index, image)
+        imgView.image = UIImage(systemName: image)
     }
+    
     enum Size {
-        static let padding: CGFloat = 5
+        static let padding: CGFloat = 10
         static let cellWidth = ConstantSize.sideViewWidth
         static let cellHeight = ConstantSize.totalHeight / 10
         
