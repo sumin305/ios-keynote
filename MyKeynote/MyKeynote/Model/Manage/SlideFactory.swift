@@ -31,7 +31,7 @@ final class ImageSlideFactory: SlideFactory {
     let idManager = IDManager.shared
 
     func getRandomSlide() -> any Slidable {
-        return ImageSlide(id: idManager.makeRandomID())
+        return ImageSlide(id: idManager.makeRandomID(), content: ImageContent(alpha: .one, height: 100, width: 100))
     }
 }
 

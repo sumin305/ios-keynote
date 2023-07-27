@@ -11,12 +11,12 @@ final class SquareContent: Contentable {
         self.side = side
     }
     
-    func changeRGBColor(color: RGBColor) {
-        self.rgbColor = color
-    }
-    
     func changeAlpha(alpha: AlphaType)  {
         self.alpha = alpha
+    }
+    
+    func changeRGBColor(color: RGBColor) {
+        self.rgbColor = color
     }
     
     func changeSide(side: Int) {

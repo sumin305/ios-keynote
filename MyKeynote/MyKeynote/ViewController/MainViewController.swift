@@ -2,19 +2,15 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    var slideManager: SlideManager!
+    var slideManager = SlideManager()
     var mainView: MainView!
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        slideManager = SlideManager()
         slideManager.getFourSquareSlide() // 미션 3-1 수행
-        slideManager.addRandomSlide() //메인뷰에 메서드 만들어라
-
-        NotificationCenter.default.addObserver(self, selector: #selector(didAlphaChanged), name: Notification.Name.alphaChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didColorChanged), name: Notification.Name.colorChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didSlideAdded), name: Notification.Name.slideAdded, object: nil)
-    }
+        slideManager.addRandomSlide()
+     
+      }
     
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
@@ -25,10 +21,30 @@ class MainViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        mainView = MainView(slides: slideManager.getSlides(), selectedIndex: slideManager.getSlideIndex())
+        addObservers()
+        setMainView()
+        setSubViewDelegate()
+    }
+    
+    func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didAlphaChange), name: Notification.Name.alphaChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didColorChange), name: Notification.Name.colorChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSlideAdd), name: Notification.Name.slideAdded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectedIndexChange), name: Notification.Name.selectedIndexChanged, object: nil)
+    }
+    
+    func setMainView() {
+        mainView = MainView(slide: slideManager.getFirstSlide())
         view.backgroundColor = UIColor(named: "SuperViewColor")
         view.addSubview(mainView)
-        mainView.setSubViewDelegate(delegatable: self)
+    }
+    
+    func setSubViewDelegate() {
+        mainView.setContentPropertyViewDelegate(delegatable: self)
+        mainView.setTapGestureDelegate(delegatable: self)
+        mainView.setSlideAddButtonDelegate(delegatable: self)
+        mainView.setSlideListTableViewDataSource(delegatable: self)
+        mainView.setSlideListTableViewDelegate(delegatable: self)
     }
 }
 // MARK: - 이벤트 설정
@@ -83,30 +99,38 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
         slideManager.addRandomSlide()
     }
 
-    @objc func didAlphaChanged(_ sender: Notification) {
+    @objc func didAlphaChange(_ sender: Notification) {
         guard let value = (sender.userInfo?["alpha"] as? AlphaType)?.rawValue else { return }
-        mainView.changeContentViewAlpha(alpha: AlphaType(rawValue: value)!)
+        mainView.changeContentViewAlpha(alpha: AlphaType(rawValue: value) ?? .one)
         mainView.changeAlphaText(text: String(value))
     }
     
-    @objc func didColorChanged(_ sender: Notification) {
+    @objc func didColorChange(_ sender: Notification) {
         guard let rgbColor = sender.userInfo?["color"] as? RGBColor else { return }
         let color = UIColor(color: rgbColor, alpha: .one)
-        let squareSlideContent = (slideManager.getSlides()[slideManager.getSlideIndex()].content as! SquareContent)
+        let squareSlideContent = slideManager.getContent()
         mainView.changeContentViewBackgroundColor(color: color.withAlphaComponent(squareSlideContent.alpha.alphaValue))
         mainView.changeContentPropertyViewColor(color: color)
         mainView.changeContentPropertyViewColorText(text: color.hexadecimal)
     }
     
-    @objc func didSlideAdded(_ sender: Notification) {
+    @objc func didSlideAdd(_ sender: Notification) {
         guard let slide = sender.userInfo?["slide"] as? (any Slidable) else { return }
         mainView.updateSlideList(slide: slide)
         mainView.redrawSlideView(slide: slide)
-        mainView.redrawContentPropertyView(text: String(slide.content!.alpha.rawValue),
-                                           color: UIColor(color: (slide.content as? SquareContent)!.rgbColor, alpha: slide.content!.alpha))
-        mainView.setSubViewDelegate(delegatable: self)
+        mainView.redrawContentPropertyView(text: String(slide.content.alpha.rawValue),
+                                           color: UIColor(color: (slide.content as? SquareContent)?.rgbColor ?? RGBColor(red: 10, green: 10, blue: 10), alpha: slide.content.alpha))
+       setSubViewDelegate()
     }
     
+    @objc func didSelectedIndexChange(_ sender: Notification) {
+        guard let index = sender.userInfo?["index"] as? Int else { return }
+        let slide = slideManager.getSlides()[index]
+        mainView.redrawSlideView(slide: slide)
+        mainView.redrawContentPropertyView(text: String(slide.content.alpha.rawValue),
+                                           color: UIColor(color: (slide.content as? SquareContent)?.rgbColor ?? RGBColor(red: 10, green: 10, blue: 10), alpha: slide.content.alpha))
+        setSubViewDelegate()
+    }
     // MARK: - UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return slideManager.getSlideCount()
@@ -120,6 +144,10 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CustomCell.Size.cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        slideManager.changeSelectedIndex(index: indexPath[1])
     }
 }
 

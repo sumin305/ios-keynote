@@ -8,9 +8,9 @@ final class MainView: UIView {
     private var contentPropertyView: ContentPropertyView!
     
     // 뷰에 slideManager를 넘겨주지 않고, Notification Center, property 넘겨주기~
-    init(slides: [any Slidable], selectedIndex: Int) {
+    init(slide: any Slidable) {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        initUI(slides: slides, selectedIndex: selectedIndex)
+        initUI(slide: slide)
         configurateUI()
         addSubViews()
         backgroundColor = UIColor(named: "SubViewColor")
@@ -21,10 +21,10 @@ final class MainView: UIView {
         super.init(coder: coder)
     }
     
-    func initUI(slides: [any Slidable], selectedIndex: Int) {
-        slideView = SlideView(slide: slides[selectedIndex])
-        contentPropertyView = ContentPropertyView(content: slides[selectedIndex].content ?? ImageContent(alpha: .one, height: 100, width: 100))
-        slideListView = SlideListView(slideArray: slides)
+    func initUI(slide: any Slidable) {
+        slideView = SlideView(slide: slide)
+        contentPropertyView = ContentPropertyView(content: slide.content)
+        slideListView = SlideListView()
     }
     
     func configurateUI() {
@@ -39,28 +39,24 @@ final class MainView: UIView {
     }
     
     // MARK: - 하위 뷰 Delegate 등록 -> ANYOBJECT 사용하지 말자 ..
-    func setSubViewDelegate(delegatable: AnyObject) {
-        setContentPropertyViewDelegate(delegatable: delegatable)
-        setTapGestureDelegate(delegatable: delegatable)
-        setSlideAddButtonDelegate(delegatable: delegatable)
-        setSlideListTableViewDataSource(delegatable: delegatable)
-    }
-    func setContentPropertyViewDelegate(delegatable: AnyObject) {
-        contentPropertyView.setContentPropertyViewDelegate(delegatable: delegatable as! ContentPropertyViewDelegate)
+    func setContentPropertyViewDelegate(delegatable: ContentPropertyViewDelegate) {
+        contentPropertyView.setContentPropertyViewDelegate(delegatable: delegatable)
     }
     
-    func setTapGestureDelegate(delegatable: AnyObject) {
-        slideView.setTapGestureDelegate(delegatable: delegatable as! TapGestureDelegate)
+    func setTapGestureDelegate(delegatable: TapGestureDelegate) {
+        slideView.setTapGestureDelegate(delegatable: delegatable)
     }
     
-    func setSlideAddButtonDelegate(delegatable: AnyObject) {
-        slideListView.setSlideAddButtonDelegate(delegatable: delegatable as! SlideListViewDelegate)
+    func setSlideAddButtonDelegate(delegatable: SlideListViewDelegate) {
+        slideListView.setSlideAddButtonDelegate(delegatable: delegatable)
     }
     
-    func setSlideListTableViewDataSource(delegatable: AnyObject) {
-        slideListView.setSlideListTableViewDataSource(delegatable: delegatable as! UITableViewDataSource)
-        
-        slideListView.setSlideListTableDelegate(delegatable: delegatable as! UITableViewDelegate)
+    func setSlideListTableViewDataSource(delegatable: UITableViewDataSource) {
+        slideListView.setSlideListTableViewDataSource(delegatable: delegatable)
+    }
+    
+    func setSlideListTableViewDelegate(delegatable: UITableViewDelegate) {
+        slideListView.setSlideListTableDelegate(delegatable: delegatable)
     }
     // MARK: - Alpha 변경
     func changeContentViewAlpha(alpha: AlphaType) {
@@ -113,6 +109,5 @@ final class MainView: UIView {
         contentPropertyView.changeAlphaText(text: text)
         contentPropertyView.changeContentPropertyViewColor(color: color)
         contentPropertyView.changeContentPropertyViewColorText(text: color.hexadecimal)
-        
     }
 }
