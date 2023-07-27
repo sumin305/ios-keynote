@@ -5,10 +5,10 @@ extension UIColor {
         return UInt8((self.cgColor.components?[0] ?? 0)*255)
     }
     var greenToUInt8: UInt8 {
-        return UInt8(self.cgColor.components?[1] ?? 0)*255)
+        return UInt8((self.cgColor.components?[1] ?? 0)*255)
     }
     var blueToUInt8: UInt8 {
-        return UInt8(self.cgColor.components?[2] ?? 0)*255)
+        return UInt8((self.cgColor.components?[2] ?? 0)*255)
     }
 }
 
