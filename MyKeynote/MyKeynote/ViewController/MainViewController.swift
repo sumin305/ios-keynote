@@ -63,13 +63,11 @@ extension MainViewController: UIColorPickerViewControllerDelegate, TapGestureDel
     // MARK: - 색상 변경
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         let color = viewController.selectedColor
-        // Model
         slideManager.changeRGBColor(color: RGBColor(red: color.redToUInt8, green: color.greenToUInt8, blue: color.blueToUInt8))
     }
     
     // MARK: - Stepper 변경
     func stepperPressed(value: Int) {
-        // Model
         slideManager.changeAlpha(alpha: AlphaType(rawValue: value) ?? .one)
     }
 
