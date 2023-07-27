@@ -30,7 +30,6 @@ final class SquareContentView: UIView, ContentView {
     }
     
     func changeContentViewAlpha(alpha: AlphaType) {
-        // alpha가 변할 때 border의 투명도도 변하지 않도록 alpha = 이렇게 안하고 backgroundColor 변경
         backgroundColor = self.backgroundColor?.withAlphaComponent(alpha.alphaValue)
     }
     
