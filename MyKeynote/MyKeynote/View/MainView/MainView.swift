@@ -38,7 +38,7 @@ final class MainView: UIView {
         addSubview(contentPropertyView)
     }
     
-    // MARK: - 하위 뷰 Delegate 등록
+    // MARK: - 하위 뷰 Delegate 등록 -> ANYOBJECT 사용하지 말자 ..
     func setSubViewDelegate(delegatable: AnyObject) {
         setContentPropertyViewDelegate(delegatable: delegatable)
         setTapGestureDelegate(delegatable: delegatable)
@@ -93,15 +93,26 @@ final class MainView: UIView {
     }
     
    func disableContentPropertyView() {
-            contentPropertyView.disableContentPropertyView()
+        contentPropertyView.disableContentPropertyView()
     }
     
     func disableContentViewBorder() {
         slideView.disableContentViewBorder()
     }
-    
+    // MARK: - 슬라이드 추가
     func updateSlideList(slide: any Slidable) {
         slideListView.updateSlideList(slide: slide)
     }
+    
+    func redrawSlideView(slide: any Slidable) {
+        slideView = SlideView(slide: slide)
+        addSubview(slideView)
+    }
+    
+    func redrawContentPropertyView(text: String, color: UIColor) {
+        contentPropertyView.changeAlphaText(text: text)
+        contentPropertyView.changeContentPropertyViewColor(color: color)
+        contentPropertyView.changeContentPropertyViewColorText(text: color.hexadecimal)
         
+    }
 }

@@ -38,6 +38,7 @@ final class SlideListView: SideView {
     
     func setSlideListTableView() {
         slideListTableView = UITableView(frame: CGRect(x: 0, y: 0, width: ConstantSize.sideViewWidth, height: ConstantSize.totalHeight - slideAddButton.frame.height), style: .plain)
+        slideListTableView.backgroundColor = UIColor(named: "SubviewColor")
         slideListTableView.register(CustomCell.self, forCellReuseIdentifier: "CustomCell")
         addSubview(slideListTableView)
     }
@@ -51,7 +52,7 @@ final class SlideListView: SideView {
     }
     
     func updateSlideList(slide: any Slidable) {
-        slideListTableView.insertRows(at: IndexPath[], with: .automatic)
+//        slideListTableView.insertRows(at: IndexPath[], with: .automatic)
         slideListTableView.reloadData()
     }
 }
