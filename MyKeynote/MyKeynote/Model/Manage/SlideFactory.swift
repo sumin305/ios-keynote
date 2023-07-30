@@ -1,6 +1,10 @@
 import Foundation
 import OSLog
 
+protocol SlideFactory {
+    func getRandomSlide() -> any Slidable
+}
+
 final class SquareSlideFactory: SlideFactory {
     let idManager = IDManager.shared
 
@@ -27,33 +31,8 @@ final class ImageSlideFactory: SlideFactory {
     let idManager = IDManager.shared
 
     func getRandomSlide() -> any Slidable {
-        return ImageSlide(id: idManager.makeRandomID())
+        return ImageSlide(id: idManager.makeRandomID(), content: ImageContent(alpha: .one, height: 100, width: 100))
     }
 }
 
-protocol SlideFactory {
-    func getRandomSlide() -> any Slidable
-}
 
-
-final class IDManager {
-    static let shared = IDManager()
-    
-    private init() { }
-    private var uniqueIDSet: Set<String> = []
-    
-    func makeRandomID() -> String {
-        let stringArray = "abcdefghijklmnopqrstuvwxyz0123456789"
-        var id: String = ""
-        for _ in 0..<9 {
-            if let randomString = stringArray.randomElement() {
-                id += String(randomString)
-            }
-        }
-        while uniqueIDSet.contains(id) {
-            id = makeRandomID()
-        }
-        uniqueIDSet.insert(id)
-        return id
-    }
-}

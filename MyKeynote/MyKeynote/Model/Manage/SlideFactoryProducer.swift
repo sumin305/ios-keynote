@@ -1,11 +1,10 @@
 import Foundation
-
+// 팩팩 필요할까 공부해보고 고치기
 final class SlideFactoryProducer {
     static func getFactory(contentType: ContentType) -> SlideFactory {
-        if contentType == .square {
-            return SquareSlideFactory()
-        } else {
-            return ImageSlideFactory()
+        switch contentType {
+            case .square: return SquareSlideFactory()
+            default: return ImageSlideFactory()
         }
     }
 }

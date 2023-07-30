@@ -21,17 +21,4 @@ struct RGBColor {
     }
 }
 
-extension RGBColor {
-    var hexadecimal: String {
-        var hexaString = "0x"
-        for rgb in [red, green, blue] {
-            let mod: Int = Int(rgb % 16)
-            let divisor: Int = Int(rgb / 16)
-            hexaString += (divisor >= 10 ? String(UnicodeScalar(divisor + 55)!) : String(divisor))
-            hexaString += (mod >= 10 ? String(UnicodeScalar(mod + 55)!) : String(mod))
-        }
-        return hexaString
-    }
-}
-
 

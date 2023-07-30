@@ -1,20 +1,72 @@
 import Foundation
 import UIKit
 
+protocol SlideListViewDelegate: AnyObject {
+    func addSlide()
+}
+
 final class SlideListView: SideView {
     
-    var slideArray: [any Slidable]
-
-    init(slideArray: [any Slidable]) {
-        self.slideArray = slideArray
+    var slideListTableView: UITableView!
+    var slideAddButton: UIButton!
+    
+    weak var delegate: SlideListViewDelegate?
+    
+    override init() {
         super.init()
+        setSlideAddButton()
+        setSlideListTableView()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
-    
+
     override func setFrame() {
         frame = CGRect(x: 0, y: 0, width: ConstantSize.sideViewWidth, height: ConstantSize.totalHeight)
+    }
+    
+    func setSlideAddButton() {
+        slideAddButton = UIButton(type: .system)
+        slideAddButton.setTitle( "(+)", for: .normal)
+        slideAddButton.tintColor = UIColor(named: "SlideAddButtonTextColor")
+        slideAddButton.backgroundColor = UIColor(named: "SlideAddButtonColor")
+        slideAddButton.layer.cornerRadius = Size.cornerRadius
+        slideAddButton.frame = CGRect(x: 0, y: ConstantSize.totalHeight - Size.buttonHeight, width: ConstantSize.sideViewWidth, height: Size.buttonHeight)
+        slideAddButton.addTarget(self, action: #selector(slideAddButtonTapped), for: .touchUpInside)
+        addSubview(slideAddButton)
+    }
+    
+    func setSlideListTableView() {
+        slideListTableView = UITableView(frame: CGRect(x: 0, y: 0, width: ConstantSize.sideViewWidth, height: ConstantSize.totalHeight - slideAddButton.frame.height), style: .plain)
+        slideListTableView.backgroundColor = UIColor(named: "SubviewColor")
+        slideListTableView.register(CustomCell.self, forCellReuseIdentifier: "CustomCell")
+        addSubview(slideListTableView)
+    }
+    
+    func setSlideListTableViewDataSource(delegatable: UITableViewDataSource) {
+        slideListTableView.dataSource = delegatable
+    }
+    
+    func setSlideListTableDelegate(delegatable: UITableViewDelegate) {
+        slideListTableView.delegate = delegatable
+    }
+    
+    func updateSlideList(slide: any Slidable) {
+        slideListTableView.reloadData()
+    }
+}
+
+extension SlideListView {
+    enum Size {
+        static let buttonHeight: CGFloat = ConstantSize.totalHeight / 13
+        static let slideListHeight: CGFloat = ConstantSize.totalHeight / 10
+        static let cornerRadius: CGFloat = 5
+    }
+    func setSlideAddButtonDelegate(delegatable: SlideListViewDelegate) {
+        self.delegate = delegatable
+    }
+    @objc func slideAddButtonTapped() {
+        delegate?.addSlide()
     }
 }
